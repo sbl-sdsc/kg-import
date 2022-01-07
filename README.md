@@ -27,7 +27,7 @@ Input files consist of node and relationship files. The conventions and concepts
 * LOCATED_IN
 * DIAGNOSED_WITH
 
-**Properties Names**: Use the **cameCase** naming convention, in which the first word is lowercase the first letter of each subsequent word is uppercase.
+**Properties Names**: Use the **camelCase** naming convention, in which the first word is lowercase the first letter of each subsequent word is uppercase.
 * startDate
 
 ### Metadata File Naming Conventions
