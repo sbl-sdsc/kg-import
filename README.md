@@ -123,7 +123,7 @@ cd kg-import
 conda env create -f environment.yml
 ```
 
-3. Make a copy of the [import_neo4j.sh](import_neo4j.sh) script and configure following variables:
+3. Make a copy of the [import_neo4j.sh](import_neo4j.sh) script and configure the following variables:
 
 ```
 NEO4J_HOME=<path_to_neo4j_home>
