@@ -1,0 +1,6 @@
+property,type,description,example
+id,string,Geonames.org id for location,geonameid:5391959
+name,string,Name of city,San Francisco
+synonyms,string[],Alternate names of city,SF|Frisco
+population,int,Population,864816
+location,point{crs:WGS-84},Latitude and longitude in WGS-84 format,"{latitude:37.77493,longitude:-122.41942}"

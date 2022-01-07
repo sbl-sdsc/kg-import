@@ -1,0 +1,7 @@
+property,type,description,example
+id,string,Unique patient id,p02939
+firstName,string,First name,John
+lastName,string,Last name,Doe
+age,int,Age,34
+sex,string,Biological sex,male
+smoker,boolean,Patient is a smoker,true

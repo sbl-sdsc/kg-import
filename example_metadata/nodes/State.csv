@@ -1,0 +1,6 @@
+property,type,description,example
+id,string,Geonames.org id for location,geonameid:5332921
+name,string,Name of state,California
+synonyms,string[],Alternate names of state,CA|Golden State
+population,int,Population,39512223
+location,point{crs:WGS-84},Latitude and longitude in WGS-84 format,"{latitude:37.25022,longitude:-119.75126}"

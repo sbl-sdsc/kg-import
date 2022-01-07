@@ -1,0 +1,4 @@
+property,type,description,example
+from,string,Id of source node,p02939
+to,string,Id of target node,SYMP:0000178
+startDate,date,Date when symptom started,2021-05-10

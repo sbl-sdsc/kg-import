@@ -1,0 +1,3 @@
+property,type,description,example
+id,string,Disease id from Human Disease Ontology,DOID:9352
+name,string,Name of disease from Human Disease Ontology,type 2 diabetes mellitus

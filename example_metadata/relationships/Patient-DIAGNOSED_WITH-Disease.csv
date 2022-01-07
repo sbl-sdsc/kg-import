@@ -1,0 +1,4 @@
+property,type,description,example
+from,string,Id of source node,p02939
+to,string,Id of target node,DOID:9352
+diagnosisDate,date,Date of diagnosis,2021-05-10

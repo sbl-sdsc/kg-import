@@ -1,0 +1,3 @@
+property,type,description,example
+from,string,Id of source node,geonameid:539195
+to,string,Id of target node,geonameid:5332921

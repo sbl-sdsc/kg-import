@@ -1,0 +1,3 @@
+property,type,description,example
+id,string,Symptom id from Symptom Ontology,SYMP:0000576
+name,string,Name of symptom,chest pain
