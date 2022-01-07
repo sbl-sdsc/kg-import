@@ -75,6 +75,8 @@ def get_node_data_headers(dirname, filename):
     import re
     import pandas as pd
     
+    print("Node Data", dirname, filename)
+    
     # get node name
     node = re.split('\.|_', filename)[0]
     
@@ -93,6 +95,8 @@ def get_relationship_data_headers(dirname, filename):
     from os.path import join
     import re
     import pandas as pd
+    
+    print("Relationship Data", dirname, filename)
     
     # get relationship name
     #parts = re.split('\.|_', filename)
