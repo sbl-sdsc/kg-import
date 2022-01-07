@@ -32,7 +32,7 @@ echo    KGIMPORT_GITREPO     : $KGIMPORT_GITREPO
 NEO4J_IMPORT="$NEO4J_HOME"/import
 
 # Path to logging directory
-LOGDIR="$NEO4J_HOME"/logs/`date +%Y-%m-%d`
+LOGDIR="$NEO4J_IMPORT"/logs/`date +%Y-%m-%d`
 mkdir -p "$LOGDIR"
 echo Logging to: $LOGDIR
 
