@@ -52,7 +52,7 @@ Input files consist of node and relationship files. The conventions and concepts
 
 ---
 ## Example Property Graph
-This repository contains an example property graph, defined by metadata in the example_metadata dictionary and data file in the example_data dictionary.
+This repository contains an example property graph, defined by metadata files in the example_metadata dictionary and data files in the example_data dictionary.
 
 ### Metadata Files
 The example_metadata directory defines a data model that includes the node metadata files:</br>
