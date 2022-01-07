@@ -1,0 +1,323 @@
+﻿node {
+  diameter: 50px;
+  color: #A5ABB6;
+  border-color: #9AA1AC;
+  border-width: 2px;
+  text-color-internal: #FFFFFF;
+  font-size: 10px;
+}
+relationship {
+  color: #A5ABB6;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: "<type>";
+}
+node.* {
+  color: #C990C0;
+  border-color: #b261a5;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+}
+node.Protein {
+  color: #F79767;
+  border-color: #f36924;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+  caption: "{name}";
+}
+node.DatabaseTimestamp {
+  color: #57C7E3;
+  border-color: #23b3d7;
+  text-color-internal: #2A2C34;
+  caption: "{name}";
+}
+node.Gene {
+  color: #F16667;
+  border-color: #eb2728;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}
+node.EC {
+  color: #D9C8AE;
+  border-color: #c0a378;
+  text-color-internal: #2A2C34;
+  caption: "{name}";
+}
+node.Reaction {
+  color: #8DCC93;
+  border-color: #5db665;
+  text-color-internal: #2A2C34;
+  caption: "{name}";
+}
+node.SARSCov2 {
+  color: #ECB5C9;
+  border-color: #da7298;
+  text-color-internal: #2A2C34;
+  caption: "{name}";
+}
+node.Food {
+  color: #4C8EDA;
+  border-color: #2870c2;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}
+node.AnatomyCellType {
+  color: #FFC454;
+  border-color: #d7a013;
+  text-color-internal: #2A2C34;
+  caption: "{name}";
+}
+node.Organism {
+  color: #DA7194;
+  border-color: #cc3c6c;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+}
+node.Disease {
+  color: #569480;
+  border-color: #447666;
+  text-color-internal: #FFFFFF;
+  caption: "{name}";
+  diameter: 80px;
+}
+node.Pathway {
+  caption: "{name}";
+}
+node.PharmacologicClass {
+  caption: "{name}";
+}
+node.CellularComponent {
+  caption: "{name}";
+}
+node.Compound {
+  caption: "{name}";
+}
+node.Anatomy {
+  caption: "{name}";
+}
+node.BiologicalProcess {
+  caption: "{name}";
+}
+node.Version {
+  caption: "{name}";
+}
+node.CellType {
+  caption: "{name}";
+}
+node.Nutrient {
+  caption: "{name}";
+}
+node.Symptom {
+  caption: "{name}";
+  color: #8DCC93;
+  border-color: #5db665;
+  text-color-internal: #2A2C34;
+}
+node.MolecularFunction {
+  caption: "{name}";
+}
+node.SideEffect {
+  caption: "{name}";
+}
+node.Admin1 {
+  caption: "{name}";
+}
+node.Location {
+  defaultCaption: "<id>";
+  caption: "{name}";
+}
+node.Admin2 {
+  caption: "{name}";
+}
+node.Cases {
+  caption: "{name}";
+}
+node.Chain {
+  caption: "{name}";
+}
+node.Chromosome {
+  caption: "{name}";
+}
+node.City {
+  caption: "{name}";
+  color: #F79767;
+  border-color: #f36924;
+  text-color-internal: #FFFFFF;
+  diameter: 65px;
+}
+node.Commuting {
+  caption: "{name}";
+}
+node.Computers {
+  caption: "{name}";
+}
+node.Country {
+  caption: "{name}";
+}
+node.CruiseShip {
+  caption: "{name}";
+}
+node.DataSource {
+  caption: "{name}";
+}
+node.Demographics {
+  caption: "{name}";
+}
+node.Economics {
+  caption: "{name}";
+}
+node.Education {
+  caption: "{name}";
+}
+node.Employment {
+  caption: "{name}";
+}
+node.GeneName {
+  caption: "{name}";
+}
+node.Genome {
+  caption: "{name}";
+}
+node.HealthInsurance {
+  caption: "{name}";
+}
+node.Housing {
+  caption: "{name}";
+}
+node.Income {
+  caption: "{name}";
+}
+node.Lineage {
+  caption: "{name}";
+}
+node.MetaNode {
+  caption: "{node_name}";
+  color: #D9C8AE;
+  border-color: #c0a378;
+  text-color-internal: #2A2C34;
+  diameter: 80px;
+}
+node.Occupation {
+  caption: "{name}";
+}
+node.Outbreak {
+  caption: "{name}";
+}
+node.PostalCode {
+  caption: "{name}";
+}
+node.Poverty {
+  caption: "{name}";
+}
+node.ProteinDomain {
+  caption: "{name}";
+}
+node.ProteinFamily {
+  caption: "{name}";
+}
+node.ProteinName {
+  caption: "{name}";
+}
+node.Publication {
+  caption: "{name}";
+}
+node.SocialCharacteristics {
+  caption: "{name}";
+}
+node.Strain {
+  caption: "{count}";
+}
+node.Structure {
+  caption: "{name}";
+}
+node.Tract {
+  caption: "{name}";
+}
+node.UNIntermediateRegion {
+  caption: "{name}";
+}
+node.UNRegion {
+  caption: "{name}";
+}
+node.UNSubRegion {
+  caption: "{name}";
+}
+node.USDivision {
+  caption: "{name}";
+}
+node.USRegion {
+  caption: "{name}";
+}
+node.Variant {
+  caption: "{name}";
+}
+node.World {
+  caption: "{name}";
+}
+node.Resource {
+  caption: "{n4sch__name}";
+}
+node.n4sch__Class {
+  defaultCaption: "<id>";
+}
+node.n4sch__Relationship {
+  defaultCaption: "<id>";
+}
+node._GraphConfig {
+  caption: "{_classLabel}";
+}
+node._NsPrefDef {
+  caption: "{n4sch}";
+}
+node.DataCategory {
+  caption: "{name}";
+  diameter: 80px;
+  color: #C990C0;
+  border-color: #b261a5;
+  text-color-internal: #FFFFFF;
+}
+node.DataSet {
+  caption: "{title}";
+  diameter: 80px;
+  color: #FFC454;
+  border-color: #d7a013;
+  text-color-internal: #2A2C34;
+}
+node.Author {
+  caption: "{name}";
+  color: #57C7E3;
+  border-color: #23b3d7;
+  text-color-internal: #2A2C34;
+}
+node.DataDistribution {
+  caption: "{file_name}";
+  color: #569480;
+  border-color: #447666;
+  text-color-internal: #FFFFFF;
+  diameter: 80px;
+}
+node.DataRepository {
+  caption: "{name}";
+  color: #F79767;
+  border-color: #f36924;
+  text-color-internal: #FFFFFF;
+  diameter: 80px;
+}
+relationship.MetaRelationship {
+  caption: "{relationship_name}";
+}
+node.Patient {
+  caption: "{firstName}";
+  color: #4C8EDA;
+  border-color: #2870c2;
+  text-color-internal: #FFFFFF;
+}
+node.State {
+  caption: "{name}";
+  color: #FFC454;
+  border-color: #d7a013;
+  text-color-internal: #2A2C34;
+}
