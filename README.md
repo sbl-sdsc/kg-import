@@ -113,10 +113,17 @@ To configure the import for a Neo4j Graph Database, follow these steps:
 1. Clone this Git repository
 
 ``` 
-git clone .../kg-import.git
+git clone https://github.com/sbl-sdsc/kg-import.git
 ```
 
-2. Make a copy of the [import_neo4j.sh](import_neo4j.sh) script and configure following variables:
+2. Create a Conda environment
+
+```
+cd kg-import
+conda env create -f environment.yml
+```
+
+3. Make a copy of the [import_neo4j.sh](import_neo4j.sh) script and configure following variables:
 
 ```
 NEO4J_HOME=<path_to_neo4j_home>

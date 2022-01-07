@@ -38,7 +38,6 @@ echo Logging to: $LOGDIR
 
 echo
 echo Cleaning the import directory: $NEO4J_IMPORT ...
-echo
 # Clean any existing data files
 rm -f "$NEO4J_IMPORT"/*_n.csv 
 rm -f "$NEO4J_IMPORT"/*_r.csv 
@@ -47,7 +46,6 @@ rm -f "$NEO4J_IMPORT"/import.report
 
 echo
 echo Copying data files into import directory: $NEO4J_IMPORT ...
-echo
 # For the bulk import the header line is removed, since separate header files are used. 
 # The tags _n and _r are appended to the file names to distinguish node and relationship files, respectively.
 (cd $NODE_DATA;
@@ -106,7 +104,7 @@ echo Importing data ...
 echo
 # *** Run bulk data import command ***
 (cd "$NEO4J_IMPORT";
-"$NEO4J_BIN"/neo4j-admin import --database=$NEO4J_DATABASE --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter="|" @"$NEO4J_IMPORT"/args.txt)
+"$NEO4J_BIN"/neo4j-admin import --database=$NEO4J_DATABASE --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter="|" @args.txt)
 
 if [ -s "$NEO4J_IMPORT"/import.report ]; then
     echo
