@@ -61,7 +61,7 @@ The example_metadata directory defines a data model that includes the node metad
 These metadata define the Metagraph:
 
 <p align="center">
-<img src="docs/schema.png", width="50%">
+<img src="docs/schema.png", width="80%">
 </p>
 
 
@@ -93,7 +93,7 @@ The example_data directory contains the node data files:</br>
 
 These data represent the following property graph:
 <p align="center">
-<img src="docs/graph.png", width="80%">
+<img src="docs/graph.png", width="100%">
 </p>
 
 This example demonstrates how to use tags to differentiate multiple files for the same node label, e.g., Patient_2020 and Patient_2021.
@@ -156,12 +156,3 @@ Development of this prototype was in part supported by the National Science Foun
 **NSF Convergence Accelerator Phase I (RAISE):** Knowledge Open Network Queries for Research (KONQUER) ([1937136](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1937136))
 
 **NSF RAPID:** COVID-19-Net: Integrating Health, Pathogen and Environmental Data into a Knowledge Graph for Case Tracking, Analysis, and Forecasting ([2028411](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2028411))
-
-
-
-
-
-
-
-
-# kg-import
