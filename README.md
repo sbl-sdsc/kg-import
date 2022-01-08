@@ -74,7 +74,7 @@ example    : Example value for a property
 ```
 
 The following data types are supported:
-int, long, float, double, boolean, byte, short, char, string, point, date, localtime, time, localdatetime, datetime. Spatial data (points) require a [specific syntax](https://neo4j.com/docs/cypher-manual/4.4/functions/spatial/). To specify array properties, add "[]" after the data type, e.g., string[]. To support array properties, the input data must be separted by the delimiter `|` (vertical bar)". The example file [State.csv](example_data/nodes/State.csv) demonstrates how to represent points and array properties.
+int, long, float, double, boolean, byte, short, char, string, point, date, localtime, time, localdatetime, datetime. Spatial data (points) require a [specific syntax](https://neo4j.com/docs/cypher-manual/4.4/functions/spatial/). To specify array properties, add "[]" after the data type, e.g., string[]. To support array properties, the input data must be separated by the delimiter `|` (vertical bar)". The example file [State.csv](example_data/nodes/State.csv) demonstrates how to represent points and array properties.
 
 **Metadata file example: Patient.csv**
 ```
@@ -104,6 +104,13 @@ id,firstName,lastName,age,sex,smoker
 p02939,John,Doe,64,male,true
 p38377,Jane,Doe,63,female,false
 ```
+
+**Data file: Patient_2021.csv**
+```
+id,firstName,lastName,age,sex,smoker
+p93948,James,Bond,52,male,true
+```
+
 ---
 ## Configuration File
 
