@@ -51,6 +51,13 @@ Input files consist of node and relationship files. The conventions and concepts
 * Patient-DIAGNOSED_WITH-Disease_2021.csv
 
 ---
+## Data File Requirements
+1. Data items containing commas must be quoted.
+2. Missing data items must be represented as an empty string.
+3. Data records must be represented as a single line in a .csv file, e.g., do not contain line breaks.
+4. Duplicate records must be removed.
+
+---
 ## Example Property Graph
 This repository contains an example property graph, defined by metadata files in the example_metadata dictionary and data files in the example_data dictionary.
 
