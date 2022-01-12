@@ -96,7 +96,9 @@ fi
 echo
 echo Dropping database: $NEO4J_DATABASE ...
 echo
-"$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "DROP DATABASE $NEO4J_DATABASE IF EXISTS;"
+# Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+NEO4J_DATABASE_QUOTED=\`$NEO4J_DATABASE\`
+"$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "DROP DATABASE $NEO4J_DATABASE_QUOTED IF EXISTS;"
 rm -rf "$NEO4J_HOME"/data/databases/$NEO4J_DATABASE
 
 echo
@@ -118,7 +120,7 @@ fi
 echo
 echo Creating database: $NEO4J_DATABASE ...
 echo
-"$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "CREATE DATABASE $NEO4J_DATABASE;"
+"$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "CREATE DATABASE $NEO4J_DATABASE_QUOTED;"
 
 echo
 echo Done: $NEO4J_DATABASE is ready for use
