@@ -1,0 +1,65 @@
+node {
+  diameter: 50px;
+  color: #A5ABB6;
+  border-color: #9AA1AC;
+  border-width: 2px;
+  text-color-internal: #FFFFFF;
+  font-size: 10px;
+}
+relationship {
+  color: #A5ABB6;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-external: #000000;
+  text-color-internal: #FFFFFF;
+  caption: "<type>";
+}
+node.* {
+  color: #C990C0;
+  border-color: #b261a5;
+  text-color-internal: #FFFFFF;
+  defaultCaption: "<id>";
+}
+node.City {
+  caption: "{name}";
+  color: #F79767;
+  border-color: #f36924;
+  text-color-internal: #FFFFFF;
+  diameter: 65px;
+}
+node.Disease {
+  caption: "{name}";
+  color: #569480;
+  border-color: #447666;
+  text-color-internal: #FFFFFF;
+  diameter: 80px;
+}
+node.Symptom {
+  caption: "{name}";
+  color: #8DCC93;
+  border-color: #5db665;
+  text-color-internal: #2A2C34;
+}
+node.Patient {
+  caption: "{firstName}";
+  color: #4C8EDA;
+  border-color: #2870c2;
+  text-color-internal: #FFFFFF;
+}
+node.State {
+  caption: "{name}";
+  color: #FFC454;
+  border-color: #d7a013;
+  text-color-internal: #2A2C34;
+}
+node.MetaNode {
+  caption: "{nodeName}";
+  color: #D9C8AE;
+  border-color: #c0a378;
+  text-color-internal: #2A2C34;
+  diameter: 80px;
+}
+relationship.MetaRelationship {
+  caption: "{relationshipName}";
+}
