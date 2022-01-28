@@ -42,10 +42,6 @@ def create_relationship_headers(dirname, filename):
     # create column names for header file
     df['colName'] = df['property'] + ':' + df['type']
     
-    # Create unique ID for primary key
-    #parts = re.split('\.|_', filename)
-    #basename = re.split('\.|_', filename)
-    
     # remove extension from filename
     basename = filename.split('.')[0]
     # split nodes from relationship
@@ -99,7 +95,6 @@ def get_relationship_data_headers(dirname, filename):
     print("Relationship Data", dirname, filename)
     
     # get relationship name
-    #parts = re.split('\.|_', filename)
     parts = filename.split('-', 2)
     relationship = parts[1]
     
