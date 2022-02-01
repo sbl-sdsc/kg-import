@@ -62,8 +62,23 @@ Input files consist of node and relationship files. The conventions and concepts
 This repository contains an example property graph, defined by metadata files in the example_metadata dictionary and data files in the example_data dictionary.
 
 ### Metadata Files
-The example_metadata directory defines a data model that includes the node metadata files:</br>
-[Patient](example_metadata/nodes/Patient.csv), [Disease](example_metadata/nodes/Disease.csv), [Symptom](example_metadata/nodes/Symptom.csv), [City](example_metadata/nodes/City.csv), [State](example_metadata/nodes/State.csv), </br>and relationship metadata files:</br> [Disease-PRESENTS-Symptom](example_metadata/relationships/Disease-PRESENTS-Symptom.csv), [Patient-DIAGNOSED_WITH-Disease](example_metadata/relationships/Patient-DIAGNOSED_WITH-Disease.csv), [Patient-LIVES_IN-City](example_metadata/relationships/Patient-LIVES_IN-City.csv), [Patient-SHOWS-Symptom](example_metadata/relationships/Patient-SHOWS-Symptom.csv).
+The example_metadata directory defines a data model that includes the node and relationship metadata files:
+
+```
+├── example_metadata
+│   ├── nodes
+│   │   ├── City.csv
+│   │   ├── Disease.csv
+│   │   ├── Patient.csv
+│   │   ├── State.csv
+│   │   └── Symptom.csv
+│   └── relationships
+│       ├── City-LOCATED_IN-State.csv
+│       ├── Disease-PRESENTS-Symptom.csv
+│       ├── Patient-DIAGNOSED_WITH-Disease.csv
+│       ├── Patient-LIVES_IN-City.csv
+│       └── Patient-SHOWS-Symptom.csv
+```
 
 These metadata define the Metagraph:
 
@@ -97,6 +112,24 @@ smoker,boolean,Patient is a smoker,true
 ### Data Files
 The example_data directory contains the node data files:</br>
 [Patient_2020](example_data/nodes/Patient_2020.csv), [Patient_2021](example_data/nodes/Patient_2021.csv), [Disease](example_data/nodes/Disease.csv), [Symptom](example_data/nodes/Symptom.csv), [City](example_data/nodes/City.csv), [State](example_data/nodes/State.csv), </br>and relationship data files:</br> [Disease-PRESENTS-Symptom](example_data/relationships/Disease-PRESENTS-Symptom.csv), [Patient-DIAGNOSED_WITH-Disease_2020](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2020.csv), [Patient-DIAGNOSED_WITH-Disease_2021](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2021.csv), [Patient-LIVES_IN-City](example_data/relationships/Patient-LIVES_IN-City.csv), [Patient-SHOWS-Symptom](example_data/relationships/Patient-SHOWS-Symptom.csv).
+
+
+`├── example_data`</br>
+`│   ├── nodes`</br>
+`│   │   ├── `[City.csv](example_data/nodes/City.csv)</br>
+`│   │   ├── `[Disease.csv](example_data/nodes/Disease.csv)</br>
+`│   │   ├── Patient_2020.csv`</br>
+│   │   ├── Patient_2021.csv
+│   │   ├── State.csv
+│   │   └── Symptom.csv
+│   └── relationships
+│       ├── City-LOCATED_IN-State.csv
+│       ├── Disease-PRESENTS-Symptom.csv
+│       ├── Patient-DIAGNOSED_WITH-Disease_2020.csv
+│       ├── Patient-DIAGNOSED_WITH-Disease_2021.csv
+│       ├── Patient-LIVES_IN-City.csv
+│       └── Patient-SHOWS-Symptom.csv
+
 
 These data represent the following property graph:
 <p align="center">
