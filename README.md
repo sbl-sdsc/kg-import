@@ -64,28 +64,24 @@ This repository contains an example property graph, defined by metadata files in
 ### Metadata Files
 The example_metadata directory defines a data model that includes the node and relationship metadata files:
 
-```
-├── example_metadata
-│   ├── nodes
-│   │   ├── City.csv
-│   │   ├── Disease.csv
-│   │   ├── Patient.csv
-│   │   ├── State.csv
-│   │   └── Symptom.csv
-│   └── relationships
-│       ├── City-LOCATED_IN-State.csv
-│       ├── Disease-PRESENTS-Symptom.csv
-│       ├── Patient-DIAGNOSED_WITH-Disease.csv
-│       ├── Patient-LIVES_IN-City.csv
-│       └── Patient-SHOWS-Symptom.csv
-```
+`├── example_metadata`</br>
+`│   ├── nodes`</br>
+`│   │   ├── `[City.csv](example_metadata/nodes/City.csv)</br>
+`│   │   ├── `[Disease.csv](example_metadata/nodes/Disease.csv)</br>
+`│   │   ├── `[Patient.csv](example_metadata/nodes/Patient.csv)</br>
+`│   │   ├── `[State.csv](example_metadata/nodes/State.csv)</br>
+`│   │   └── `[Symptom.csv](example_metadata/nodes/Symptom.csv)</br>
+`│   └── relationships`</br>
+`│       ├── `[City-LOCATED_IN-State.csv](example_metadata/relationships/City-LOCATED_IN-State.csv)</br>
+`│       ├── `[Disease-PRESENTS-Symptom.csv](example_metadata/relationships/Disease-PRESENTS-Symptom.csv)</br>
+`│       ├── `[Patient-DIAGNOSED_WITH-Disease.csv](example_metadata/relationships/Patient-DIAGNOSED_WITH-Disease.csv)</br>
+`│       ├── `[Patient-LIVES_IN-City.csv](example_metadata/relationships/Patient-LIVES_IN-City.csv)</br>
+`│       └── `[Patient-SHOWS-Symptom.csv](example_metadata/relationships/Patient-SHOWS-Symptom.csv)</br>
 
-These metadata define the Metagraph:
 
-<p align="center">
-<img src="docs/schema.png", width="80%">
-</p>
+These metadata define the schema or metagraph:
 
+![Metagraph](docs/schema.png)
 
 Each metadata file contains four columns:
 ```
@@ -110,31 +106,27 @@ smoker,boolean,Patient is a smoker,true
 ```
 
 ### Data Files
-The example_data directory contains the node data files:</br>
-[Patient_2020](example_data/nodes/Patient_2020.csv), [Patient_2021](example_data/nodes/Patient_2021.csv), [Disease](example_data/nodes/Disease.csv), [Symptom](example_data/nodes/Symptom.csv), [City](example_data/nodes/City.csv), [State](example_data/nodes/State.csv), </br>and relationship data files:</br> [Disease-PRESENTS-Symptom](example_data/relationships/Disease-PRESENTS-Symptom.csv), [Patient-DIAGNOSED_WITH-Disease_2020](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2020.csv), [Patient-DIAGNOSED_WITH-Disease_2021](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2021.csv), [Patient-LIVES_IN-City](example_data/relationships/Patient-LIVES_IN-City.csv), [Patient-SHOWS-Symptom](example_data/relationships/Patient-SHOWS-Symptom.csv).
-
+The example_data directory mirrors the organization of the metadata. It contains the node and relationship data files that match the node and relationship names from the metadata.
 
 `├── example_data`</br>
 `│   ├── nodes`</br>
 `│   │   ├── `[City.csv](example_data/nodes/City.csv)</br>
 `│   │   ├── `[Disease.csv](example_data/nodes/Disease.csv)</br>
-`│   │   ├── Patient_2020.csv`</br>
-│   │   ├── Patient_2021.csv
-│   │   ├── State.csv
-│   │   └── Symptom.csv
-│   └── relationships
-│       ├── City-LOCATED_IN-State.csv
-│       ├── Disease-PRESENTS-Symptom.csv
-│       ├── Patient-DIAGNOSED_WITH-Disease_2020.csv
-│       ├── Patient-DIAGNOSED_WITH-Disease_2021.csv
-│       ├── Patient-LIVES_IN-City.csv
-│       └── Patient-SHOWS-Symptom.csv
+`│   │   ├── `[Patient_2020.csv](example_data/nodes/Patient_2020.csv)</br>
+`│   │   ├── `[Patient_2021.csv](example_data/nodes/Patient_2021.csv)</br>
+`│   │   ├── `[State.csv](example_data/nodes/State.csv)</br>
+`│   │   └── `[Symptom.csv](example_data/nodes/Symptom.csv)</br>
+`│   └── relationships`</br>
+`│       ├── `[City-LOCATED_IN-State.csv](example_data/relationships/City-LOCATED_IN-State.csv)</br>
+`│       ├── `[Disease-PRESENTS-Symptom.csv](example_data/relationships/Disease-PRESENTS-Symptom.csv)</br>
+`│       ├── `[Patient-DIAGNOSED_WITH-Disease_2020.csv](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2020.csv)</br>
+`│       ├── `[Patient-DIAGNOSED_WITH-Disease_2021.csv](example_data/relationships/Patient-DIAGNOSED_WITH-Disease_2021.csv)</br>
+`│       ├── `[Patient-LIVES_IN-City.csv](example_data/relationships/Patient-LIVES_IN-City.csv)</br>
+`│       └── `[Patient-SHOWS-Symptom.csv](example_data/relationships/Patient-SHOWS-Symptom.csv)</br>
 
 
 These data represent the following property graph:
-<p align="center">
-<img src="docs/graph.png", width="100%">
-</p>
+![Property Graph](docs/graph.png)
 
 This example demonstrates how to use tags to differentiate multiple files for the same node label, e.g., Patient_2020 and Patient_2021.
 
