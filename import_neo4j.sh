@@ -4,9 +4,14 @@
 #
 # Place a copy of this script outside this Git Repository and set the <variables> below.
 #
+
+# Absolute path to Neo4j home directory
+#    Add quotes if the path contains spaces, e.g.,
+#    export NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-0a85af40-86b9-4245-8d96-f51dba4acdc0"
 export NEO4J_HOME=<path_to_neo4j_home>
-# Quotes are required if the paths contains spaces, e.g. a Neo4j path on MacOS:
-# export NEO4J_HOME="/Users/user/Library/Application Support/com.Neo4j.Relate/Data/dbmss/dbms-d0f33a6a-23e5-4663-a19c-21a9904d23c9"
+
+# Absolute path to Neo4j bin directory
+#    On MacOS: NEO4J_BIN="$NEO4J_HOME"/bin
 export NEO4J_BIN=<path_to_neo4j_bin>
 
 export NEO4J_USERNAME=<neo4j_username>
