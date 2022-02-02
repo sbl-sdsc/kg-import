@@ -72,11 +72,11 @@ The example_metadata directory defines a data model that includes the node and r
 `│ ` `  │   ├── `[State.csv](example_metadata/nodes/State.csv)</br>
 `│ ` `  │   └── `[Symptom.csv](example_metadata/nodes/Symptom.csv)</br>
 `│ ` `  └──  relationships`</br>
-`│   ` `    ├── `[City-LOCATED_IN-State.csv](example_metadata/relationships/City-LOCATED_IN-State.csv)</br>
-`│   ` `    ├── `[Disease-PRESENTS-Symptom.csv](example_metadata/relationships/Disease-PRESENTS-Symptom.csv)</br>
-`│   ` `    ├── `[Patient-DIAGNOSED_WITH-Disease.csv](example_metadata/relationships/Patient-DIAGNOSED_WITH-Disease.csv)</br>
-`│   ` `    ├── `[Patient-LIVES_IN-City.csv](example_metadata/relationships/Patient-LIVES_IN-City.csv)</br>
-`│   ` `    └── `[Patient-SHOWS-Symptom.csv](example_metadata/relationships/Patient-SHOWS-Symptom.csv)</br>
+`│   ` `  ` `  ├── `[City-LOCATED_IN-State.csv](example_metadata/relationships/City-LOCATED_IN-State.csv)</br>
+`│   ` `  ` `  ├── `[Disease-PRESENTS-Symptom.csv](example_metadata/relationships/Disease-PRESENTS-Symptom.csv)</br>
+`│   ` `  ` `  ├── `[Patient-DIAGNOSED_WITH-Disease.csv](example_metadata/relationships/Patient-DIAGNOSED_WITH-Disease.csv)</br>
+`│   ` `  ` `  ├── `[Patient-LIVES_IN-City.csv](example_metadata/relationships/Patient-LIVES_IN-City.csv)</br>
+`│   ` `  ` `  └── `[Patient-SHOWS-Symptom.csv](example_metadata/relationships/Patient-SHOWS-Symptom.csv)</br>
 
 
 These metadata define the schema or metagraph:
