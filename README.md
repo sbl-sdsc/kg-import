@@ -1,6 +1,6 @@
 # kg-import
 
-kg-import automates the import of heterogenous data into Knowledge Graphs.
+kg-import automates the ingestions of heterogenous datasets into Knowledge Graphs.
 
 kg-import uses file naming conventions, metadata, and configuration files to create, refactor, and update Knowledge Graphs (KGs).
 
@@ -126,6 +126,7 @@ The example_data directory mirrors the organization of the metadata. It contains
 
 
 These data represent the following property graph:
+
 ![Property Graph](docs/graph.png)
 
 This example demonstrates how to use tags to differentiate multiple files for the same node label, e.g., Patient_2020 and Patient_2021.
@@ -144,56 +145,108 @@ p93948,James,Bond,52,male,true
 ```
 
 ---
-## Configuration File
+## Data Import Into Neo4j Knowledge Graph
 
-#### Neo4j Graph Database
-To configure the import for a Neo4j Graph Database, follow these steps:
+### Installing Neo4j Desktop on MacOS
 
-1. Clone this Git repository
+1. Clone the kg-import Repository
 
-``` 
+```
 git clone https://github.com/sbl-sdsc/kg-import.git
 ```
 
-2. Create a Conda environment
+2. Download the Neo4j Desktop application from the [Neo4j Download Center](https://neo4j.com/download-center/#desktop) and follow the installation instructions.
+
+3. When the installation is complete, Neo4j Desktop will launch. Click the `New` button to create a new project.
+
+![](docs/neo4j_new.png)
+
+4. Hover the cursor next to `Project`, then click the edit button and change the project name to `kg-import`
+
+![](docs/rename_project.png)
+
+5. Click the `ADD` button and select `Local DBMS`. Then type the password `kg-import` and click `Create`.
+    
+![](docs/add_graph_dbms.png)
+    
+6. Select `Terminal` to open a terminal window.
+    
+![](docs/open_terminal.png)
+
+7. Type `pwd` in the terminal window to show the path to the `NEO4J_HOME` directory. This path is required to configure the import_neo4j.sh script, see next section.
+ 
+![](docs/neo4j_home.png)
+    
+### Importing the Example Data into the Knowledge Graph
+    
+1. Copy the script [import_neo4j.sh](../import_neo4j.sh) to a location outside of this repository.
+    
+2. Edit the script and set the following variables:
 
 ```
-cd kg-import
-conda env create -f environment.yml
-```
-
-3. Make a copy of the [import_neo4j.sh](import_neo4j.sh) script and configure the following variables:
-
-```
+# Absolute path to Neo4j home directory
+#    Add quotes if the path contains spaces, e.g.,
+#    export NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-0a85af40-86b9-4245-8d96-f51dba4acdc0"
 NEO4J_HOME=<path_to_neo4j_home>
-NEO4J_BIN=<path_to_neo4j_bin>
-NEO4J_USERNAME=<neo4j_username>
-NEO4J_PASSWORD=<neo4j_password>
+
+# Absolute path to Neo4j bin directory
+#    On MacOS: NEO4J_BIN="$NEO4J_HOME"/bin
+export NEO4J_BIN="$NEO4J_HOME"/bin
+
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=kg-import
 
 # A new database will be created if it does not exist.
 # An existing database will be overwritten with the new data.
-NEO4J_DATABASE=<neo4j_database_name>
+NEO4J_DATABASE=example
 
 # Absolute paths to node and relationship metadata file directories
-NODE_METADATA=<path_to_node_metadata_files>
-RELATIONSHIP_METADATA=<path_to_relationship_metadata_files>
+export NODE_METADATA=/Users/<path>/kg-import/example_metadata/nodes
+export RELATIONSHIP_METADATA=/Users/<path>/kg-import/example_metadata/relationships
 
 # Absolute paths to node and relationship data file directories
-NODE_DATA=<path_to_node_csv_files>
-RELATIONSHIP_DATA=<path_to_relationship_csv_files>
+export NODE_DATA=/Users/<path>/kg-import/example_data/nodes
+export RELATIONSHIP_DATA=/Users/<path>/kg-import/example_data/relationships
 
-# Absolute path to the cloned kg-import Git repository
-KGIMPORT_GITREPO=<path_to_this_git_repository>
+# Absolute path to kg-import Git repository
+export KGIMPORT_GITREPO=/Users/<path>/kg-import
+
+# Run the Neo4j bulk data import
+$KGIMPORT_GITREPO/scripts/neo4j_bulk_import.sh
 ```
+   
+3. Start Neo4j Graph DBMS in the Neo4j Desktop.
+
+![](docs/start_neo4j.png)
+
+4. Run your copy of the import_neo4j.sh script in a terminal window.
+
+``` ./import_neo4j.sh```
+
+5. Click `Open` to launch Neo4j Browser.
+
+![](docs/open_database.png)
+
+6. Neo4j Browser will launch. Click on the database icon on the top left and select the `example` database. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
+
+![](docs/select_database.png)
+
+7. Import the graph style sheet into Neo4j Browser
+
+Using MacOS Finder, navigate to the `kg-import/styles` directory. Drag and drop the file `style.grass` onto the Neo4j Browser window to apply the style.
+
+![](docs/node_labels.png)
+
+
+8. Now you are ready to explore the example database!
+
+Double-click on Node Label `*(19)` to display all nodes in the example graph. Click on Patient `Jane` to show the properties of the node.
+
+![](docs/all_nodes.png)
 
 ---
-## Data Import Into Neo4j Knowledge Graph
-
-TODO add detailed instructions here ...
-
-1. Start the Neo4j database instance if it is not running
-2. Run the the import_neo4j.sh script: ```./import_neo4j.sh```
-3. Start Neoj4 browser and explore the imported Knowledge Graph
+## Citation
+Peter W. Rose, kg-import: A tool for ingesting heterogenous datasets into Knowledge Graphs. Available online: https://github.com/sbl-sdsc/kg-import (2021).
 
 ---
 ## Funding

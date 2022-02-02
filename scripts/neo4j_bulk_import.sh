@@ -163,5 +163,5 @@ if [[ "${?}" -ne 0 ]]; then
 fi
 
 echo
-echo Done: Datbase $NEO4J_DATABASE is ready for use.
+echo Done: Database $NEO4J_DATABASE is ready for use.
 echo
