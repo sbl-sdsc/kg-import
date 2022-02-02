@@ -65,13 +65,13 @@ This repository contains an example property graph, defined by metadata files in
 The example_metadata directory defines a data model that includes the node and relationship metadata files:
 
 `├──  example_metadata`</br>
-`│   ├──  nodes`</br>
-`│   │   ├── `[City.csv](example_metadata/nodes/City.csv)</br>
-`│   │   ├── `[Disease.csv](example_metadata/nodes/Disease.csv)</br>
-`│   │   ├── `[Patient.csv](example_metadata/nodes/Patient.csv)</br>
-`│   │   ├── `[State.csv](example_metadata/nodes/State.csv)</br>
-`│   │   └── `[Symptom.csv](example_metadata/nodes/Symptom.csv)</br>
-`│   └──  relationships`</br>
+`│ ` `  ├──  nodes`</br>
+`│ ` `  │   ├── `[City.csv](example_metadata/nodes/City.csv)</br>
+`│ ` `  │   ├── `[Disease.csv](example_metadata/nodes/Disease.csv)</br>
+`│ ` `  │   ├── `[Patient.csv](example_metadata/nodes/Patient.csv)</br>
+`│ ` `  │   ├── `[State.csv](example_metadata/nodes/State.csv)</br>
+`│ ` `  │   └── `[Symptom.csv](example_metadata/nodes/Symptom.csv)</br>
+`│ ` `  └──  relationships`</br>
 `│   ` `    ├── `[City-LOCATED_IN-State.csv](example_metadata/relationships/City-LOCATED_IN-State.csv)</br>
 `│   ` `    ├── `[Disease-PRESENTS-Symptom.csv](example_metadata/relationships/Disease-PRESENTS-Symptom.csv)</br>
 `│   ` `    ├── `[Patient-DIAGNOSED_WITH-Disease.csv](example_metadata/relationships/Patient-DIAGNOSED_WITH-Disease.csv)</br>
