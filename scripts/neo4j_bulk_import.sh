@@ -137,7 +137,7 @@ fi
 rm -rf "$NEO4J_HOME"/data/databases/$NEO4J_DATABASE
 
 echo
-echo Importing data ...
+echo Importing data into offline database ...
 echo
 # *** Run bulk data import command ***
 (cd "$NEO4J_IMPORT";
@@ -154,11 +154,20 @@ if [ -s "$NEO4J_IMPORT"/import.report ]; then
 fi
 
 echo
-echo Creating database: $NEO4J_DATABASE ...
+echo Creating online database: $NEO4J_DATABASE ...
 echo
 "$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "CREATE DATABASE $NEO4J_DATABASE_QUOTED;"
 if [[ "${?}" -ne 0 ]]; then
   echo ERROR: Creating database failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+  exit 1
+fi
+
+echo
+echo Adding constraints and indices ...
+echo
+"$NEO4J_BIN"/cypher-shell -d $NEO4J_DATABASE -u $NEO4J_USERNAME -p $NEO4J_PASSWORD -f "$NEO4J_IMPORT"/indices.cypher
+if [[ "${?}" -ne 0 ]]; then
+  echo ERROR: Adding constrains and indices failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
   exit 1
 fi
 
