@@ -165,7 +165,7 @@ git clone https://github.com/sbl-sdsc/kg-import.git
 
 ![](docs/rename_project.png)
 
-5. Click the `ADD` button and select `Local DBMS`. Then type the password `kg-import` and click `Create`.
+5. Click the `ADD` button and select `Local DBMS`. Select version >= 4.4.8. Then type the password `kg-import` and click `Create`.
     
 ![](docs/add_graph_dbms.png)
     
