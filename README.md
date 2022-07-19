@@ -179,7 +179,7 @@ git clone https://github.com/sbl-sdsc/kg-import.git
     
 ### Importing the Example Data into the Knowledge Graph
     
-1. Copy the script [import_neo4j.sh](../import_neo4j.sh) to a location outside of this repository.
+1. Copy the script [import_neo4j.sh](import_neo4j.sh) to a location outside of this repository.
     
 2. Edit the script and set the following variables:
 
