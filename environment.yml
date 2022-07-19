@@ -9,3 +9,6 @@ dependencies:
   - ipywidgets=7.6.5
   - papermill=2.3.3
   - pandas=1.3.5
+  - ipycytoscape
+  - py2neo
+  - monotonic
