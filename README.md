@@ -165,7 +165,7 @@ git clone https://github.com/sbl-sdsc/kg-import.git
 
 ![](docs/rename_project.png)
 
-5. Click the `ADD` button and select `Local DBMS`. Select version >= 4.4.8. Then type the password `kg-import` and click `Create`.
+5. Click the `ADD` button and select `Local DBMS`. Select the latest version. Then enter the password `neo4jdemo` and click `Create`.
     
 ![](docs/add_graph_dbms.png)
     
@@ -179,34 +179,37 @@ git clone https://github.com/sbl-sdsc/kg-import.git
     
 ### Importing the Example Data into the Knowledge Graph
     
-1. Copy the script [import_neo4j.sh](import_neo4j.sh) to a location outside of this repository.
+1. Copy the script [import_neo4j.sh](import_neo4j.sh) to a location outside of this repository. **Do not modify the script in the kg-import repo!**
     
 2. Edit the script and set the following variables:
 
 ```
 # Absolute path to Neo4j home directory
 #    Add quotes if the path contains spaces, e.g.,
-#    export NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-0a85af40-86b9-4245-8d96-f51dba4acdc0"
+#    export NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-763cbf0d-6660-412a-8042-c55ae40d5290"
 NEO4J_HOME=<path_to_neo4j_home>
 
 # Absolute path to Neo4j bin directory
 #    On MacOS: NEO4J_BIN="$NEO4J_HOME"/bin
-export NEO4J_BIN="$NEO4J_HOME"/bin
+export NEO4J_BIN=<path_to_neo4j_bin_directory>
 
 NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=kg-import
+NEO4J_PASSWORD=neo4jdemo
 
 # A new database will be created if it does not exist.
 # An existing database will be overwritten with the new data.
-NEO4J_DATABASE=example
+NEO4J_DATABASE=neo4j
+
+# Uncomment the export statement below to set an optional Neo4j Graph Stylesheet (GraSS)
+#   A GraSS file can be exported from the Neo4j browser by running the :style command and then clicking the download icon.
+#   Example GraSS from this repo:
+export NEO4J_STYLESHEET_URL=https://raw.githubusercontent.com/sbl-sdsc/kg-import/main/styles/style.grass
 
 # Absolute paths to node and relationship metadata file directories
-export NODE_METADATA=/Users/<path>/kg-import/example_metadata/nodes
-export RELATIONSHIP_METADATA=/Users/<path>/kg-import/example_metadata/relationships
+export NEO4J_METADATA=/Users/<path>/kg-import/example_metadata/
 
 # Absolute paths to node and relationship data file directories
-export NODE_DATA=/Users/<path>/kg-import/example_data/nodes
-export RELATIONSHIP_DATA=/Users/<path>/kg-import/example_data/relationships
+export NEO4J_DATA=/Users/<path>/kg-import/example_data/
 
 # Absolute path to kg-import Git repository
 export KGIMPORT_GITREPO=/Users/<path>/kg-import
@@ -227,18 +230,12 @@ $KGIMPORT_GITREPO/scripts/neo4j_bulk_import.sh
 
 ![](docs/open_database.png)
 
-6. Neo4j Browser will launch. Click on the database icon on the top left and select the `example` database. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
-
-![](docs/select_database.png)
-
-7. Import the graph style sheet into Neo4j Browser
-
-Using MacOS Finder, navigate to the `kg-import/styles` directory. Drag and drop the file `style.grass` onto the Neo4j Browser window to apply the style.
+6. Neo4j Browser will launch. Click on the database icon on the top left. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
 
 ![](docs/node_labels.png)
 
 
-8. Now you are ready to explore the example database!
+7. Now you are ready to explore the example database!
 
 Double-click on Node Label `*(19)` to display all nodes in the example graph. Click on Patient `Jane` to show the properties of the node.
 

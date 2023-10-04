@@ -12,19 +12,24 @@ export NEO4J_HOME=<path_to_neo4j_home>
 
 # Absolute path to Neo4j bin directory
 #    On MacOS: NEO4J_BIN="$NEO4J_HOME"/bin
-export NEO4J_BIN=<path_to_neo4j_bin>
+export NEO4J_BIN=<path_to_neo4j_bin_directory>
 
 export NEO4J_USERNAME=<neo4j_username>
 export NEO4J_PASSWORD=<neo4j_password>
 export NEO4J_DATABASE=<neo4j_database_name>
 
+# Uncomment the export statement below to set an optional Neo4j Graph Stylesheet (GraSS)
+#   A GraSS file can be exported from the Neo4j browser by running the :style command and then clicking the download icon.
+#   Example GraSS from this repo:
+#   export NEO4J_STYLESHEET_URL=https://raw.githubusercontent.com/sbl-sdsc/kg-import/main/styles/style.grass
+
+#export NEO4J_STYLESHEET_URL=<url_of_neo4j_grass_file>
+
 # Absolute paths to node and relationship metadata file directories
-export NODE_METADATA=<path_to_node_metadata_files>
-export RELATIONSHIP_METADATA=<path_to_relationship_metadata_files>
+export NEO4J_METADATA=<path_to_node_metadata_directory>
 
 # Absolute paths to node and relationship data file directories
-export NODE_DATA=<path_to_node_csv_files>
-export RELATIONSHIP_DATA=<path_to_relationship_csv_files>
+export NEO4J_DATA=<path_to_node_csv_directory>
 
 # Absolute path to kg-import Git repository
 export KGIMPORT_GITREPO=<path_to_this_git_repository>

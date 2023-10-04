@@ -37,29 +37,18 @@ echo    NEO4J_BIN            : $NEO4J_BIN | tee -a "$LOGFILE"
 echo    NEO4J_USERNAME       : $NEO4J_USERNAME | tee -a "$LOGFILE"
 echo    NEO4J_PASSWORD       : $NEO4J_PASSWORD | tee -a "$LOGFILE"
 echo    NEO4J_DATABASE       : $NEO4J_DATABASE | tee -a "$LOGFILE"
-echo    NODE_METADATA        : $NODE_METADATA | tee -a "$LOGFILE"
-echo    RELATIONSHIP_METADATA: $RELATIONSHIP_METADATA | tee -a "$LOGFILE"
-echo    NODE_DATA            : $NODE_DATA | tee -a "$LOGFILE"
-echo    RELATIONSHIP_DATA    : $RELATIONSHIP_DATA | tee -a "$LOGFILE"
+echo    NEO4J_STYLESHEET_URL : $NEO4J_STYLESHEET_URL | tee -a "$LOGFILE"
+echo    NEO4J_METADATA       : $NEO4J_METADATA | tee -a "$LOGFILE"
+echo    NEO4J_DATA           : $NEO4J_DATA | tee -a "$LOGFILE"
 echo    KGIMPORT_GITREPO     : $KGIMPORT_GITREPO | tee -a "$LOGFILE"
 
-if [[ ! -d "$NODE_METADATA" ]]; then
-  echo ERROR: NODE_DATA directory "$NODE_METADATA" does not exist. | tee -a "$LOGFILE"
+if [[ ! -d "$NEO4J_METADATA" ]]; then
+  echo ERROR: NODE_DATA directory "$NEO4J_METADATA" does not exist. | tee -a "$LOGFILE"
   exit 1
 fi
 
-if [[ ! -d "$RELATIONSHIP_METADATA" ]]; then
-  echo ERROR: RELATIONSHIP_DATA directory "$RELATIONSHIP_METADATA" does not exist. | tee -a "$LOGFILE"
-  exit 1
-fi
-
-if [[ ! -d "$NODE_DATA" ]]; then
-  echo ERROR: NODE_DATA directory "$NODE_DATA" does not exist. | tee -a "$LOGFILE" 
-  exit 1
-fi
-
-if [[ ! -d "$RELATIONSHIP_DATA" ]]; then
-  echo ERROR: RELATIONSHIP_DATA directory "$RELATIONSHIP_DATA" does not exist. | tee -a "$LOGFILE"
+if [[ ! -d "$NEO4J_DATA" ]]; then
+  echo ERROR: NODE_DATA directory "$NEO4J_DATA" does not exist. | tee -a "$LOGFILE" 
   exit 1
 fi
 
@@ -75,14 +64,14 @@ echo
 echo Copying data files into import directory: $NEO4J_IMPORT ...
 # For the bulk import the header line is removed, since separate header files are used. 
 # The tags _n and _r are appended to the file names to distinguish node and relationship files, respectively.
-(cd $NODE_DATA;
+(cd "$NEO4J_DATA"/nodes;
 for f in *.csv
 do 
   tail -n +2 $f > "$NEO4J_IMPORT"/$(basename $f .csv)_n.csv
   echo Processing node file: $f >> "$LOGFILE"
 done)
 
-(cd $RELATIONSHIP_DATA;
+(cd "$NEO4J_DATA"/relationships;
 for f in *.csv
 do 
   tail -n +2 $f > "$NEO4J_IMPORT"/$(basename $f .csv)_r.csv
@@ -106,14 +95,15 @@ papermill PrepareNeo4jBulkImport.ipynb "$LOGDIR"/PrepareNeo4jBulkImport.ipynb)
 if [[ "${?}" -ne 0 ]]; then
   echo ERROR: Neo4j Bulk Import preparation failed. Check your data and metadata files. | tee -a "$LOGFILE"
   echo ERROR: See "$LOGDIR"/PrepareNeo4jBulkImport.ipynb for details. | tee -a "$LOGFILE"
+  conda deactivate
   exit 1
 fi
-conda deactivate
 
 if [ -s "$NEO4J_IMPORT"/mismatches_n.csv ]; then
     echo
     echo The following node data files do not match the metadata specification: | tee -a "$LOGFILE"
     cat "$NEO4J_IMPORT"/mismatches_n.csv | tee -a "$LOGFILE"
+    conda deactivate
     exit 1
 fi
 
@@ -121,18 +111,20 @@ if [ -s "$NEO4J_IMPORT"/mismatches_r.csv ]; then
     echo
     echo The following relationship data files do not match the metadata specification: | tee -a "$LOGFILE"
     cat "$NEO4J_IMPORT"/mismatches_r.csv | tee -a "$LOGFILE"
+    conda deactivate
     exit 1
 fi
 
 echo
-echo Dropping database: $NEO4J_DATABASE ...
+echo Dropping database: $NEO4J_DATABASE ... 
 echo
 # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
 NEO4J_DATABASE_QUOTED=\`$NEO4J_DATABASE\`
 "$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "DROP DATABASE $NEO4J_DATABASE_QUOTED IF EXISTS;"
 if [[ "${?}" -ne 0 ]]; then
-  echo ERROR: Running cypher-shell. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
-  exit 1
+    echo ERROR: Running cypher-shell. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+    conda deactivate
+    exit 1
 fi
 rm -rf "$NEO4J_HOME"/data/databases/$NEO4J_DATABASE
 
@@ -141,25 +133,27 @@ echo Importing data into offline database ...
 echo
 # *** Run bulk data import command ***
 (cd "$NEO4J_IMPORT";
-"$NEO4J_BIN"/neo4j-admin import --database=$NEO4J_DATABASE --force --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter="|" @args.txt)
+"$NEO4J_BIN"/neo4j-admin database import full $NEO4J_DATABASE --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter="|" @args.txt)
 if [[ "${?}" -ne 0 ]]; then
-  echo ERROR: Neo4j bulk data import failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
-  exit 1
+    echo ERROR: Neo4j bulk data import failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+    conda deactivate
+    exit 1
 fi
 
 if [ -s "$NEO4J_IMPORT"/import.report ]; then
-     echo
-     echo WARNING: Error messages from data import: | tee -a "$LOGFILE"
-     cat "$NEO4J_IMPORT"/import.report | tee -a "$LOGFILE"
+    echo
+    echo WARNING: Error messages from data import: | tee -a "$LOGFILE"
+    cat "$NEO4J_IMPORT"/import.report | tee -a "$LOGFILE"
 fi
 
 echo
-echo Creating online database: $NEO4J_DATABASE ...
+echo Creating online database: "$NEO4J_DATABASE" ...
 echo
 "$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "CREATE DATABASE $NEO4J_DATABASE_QUOTED;"
 if [[ "${?}" -ne 0 ]]; then
-  echo ERROR: Creating database failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
-  exit 1
+    echo ERROR: Creating database failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+    conda deactivate
+    exit 1
 fi
 
 echo
@@ -167,8 +161,30 @@ echo Adding constraints and indices ...
 echo
 "$NEO4J_BIN"/cypher-shell -d $NEO4J_DATABASE -u $NEO4J_USERNAME -p $NEO4J_PASSWORD -f "$NEO4J_IMPORT"/indices.cypher
 if [[ "${?}" -ne 0 ]]; then
-  echo ERROR: Adding constrains and indices failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
-  exit 1
+    echo ERROR: Adding constrains and indices failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+    conda deactivate
+    exit 1
+fi
+
+conda deactivate
+
+echo
+echo Setting graph styles ...
+echo
+# create a copy of the original neo4j configuration file
+if [ -s "$NEO4J_HOME"/conf/neo4j.conf-orig ]; then
+    cp "$NEO4J_HOME"/conf/neo4j.conf-orig "$NEO4J_HOME"/conf/neo4j.conf
+else
+    cp "$NEO4J_HOME"/conf/neo4j.conf "$NEO4J_HOME"/conf/neo4j.conf-orig
+fi
+
+# update the configuration file with the neo4j style sheet
+if [[ -z "$NEO4J_STYLESHEET_URL" ]]; then
+    echo No graph stylesheet specified.
+else
+    echo "browser.remote_content_hostname_whitelist=https://raw.githubusercontent.com/" >> "$NEO4J_HOME"/conf/neo4j.conf
+    echo "browser.post_connect_cmd=style " "$NEO4J_STYLESHEET_URL" >> "$NEO4J_HOME"/conf/neo4j.conf
+    echo Graph Stylesheet: "$NEO4J_STYLESHEET_URL"
 fi
 
 echo

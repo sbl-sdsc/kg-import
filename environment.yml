@@ -4,11 +4,16 @@ channels:
   - conda-forge
 
 dependencies:
-  - python=3.7
-  - jupyterlab=3.2.5
-  - ipywidgets=7.6.5
-  - papermill=2.3.3
-  - pandas=1.3.5
-  - ipycytoscape
-  - py2neo
-  - monotonic
+  - python=3.10
+  - jupyterlab=4
+  - papermill=2.4.0
+  - pandas=2.1.1
+  - py2neo=2021.2.3
+  - monotonic=1.5
+  - openjdk=17.0.8
+
+variables:
+  # Neo4j local version
+  DEMO_SERVER_URL: bolt://localhost:7687
+  DEMO_SERVER_UN: neo4j
+  DEMO_SERVER_PW: neo4jdemo
