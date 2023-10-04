@@ -26,10 +26,10 @@ export NEO4J_DATABASE=<neo4j_database_name>
 #export NEO4J_STYLESHEET_URL=<url_of_neo4j_grass_file>
 
 # Absolute paths to node and relationship metadata file directories
-export NEO4J_METADATA=<path_to_node_metadata_directory>
+export NEO4J_METADATA=<path_to_metadata_directory>
 
 # Absolute paths to node and relationship data file directories
-export NEO4J_DATA=<path_to_node_csv_directory>
+export NEO4J_DATA=<path_to_data_directory>
 
 # Absolute path to kg-import Git repository
 export KGIMPORT_GITREPO=<path_to_this_git_repository>
