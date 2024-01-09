@@ -145,6 +145,10 @@ p93948,James,Bond,52,male,true
 ```
 
 ---
+## Run Neo4j Data Import on Google Colab
+[ExampleQueries_colab](notebooks/ExampleQueries_colab.ipynb) <a target="_blank" href="https://colab.research.google.com/github/pwrose/kg-import/blob/main/notebooks/ExampleQueries_colab.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>
+
+---
 ## Data Import Into Neo4j Knowledge Graph
 
 ### Installing Neo4j Desktop on MacOS
