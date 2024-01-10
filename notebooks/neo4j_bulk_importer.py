@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 def create_kg():
     # Check environment variables and directory structure
-    load_dotenv(".env.colab")
+    #load_dotenv(".env.colab")
     
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     if not NEO4J_HOME:
