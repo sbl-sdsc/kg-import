@@ -48,7 +48,7 @@ def create_kg():
     date_time = datetime.fromtimestamp(time.time())
     timestamp = date_time.strftime("%Y-%m-%d-%H%M%S")
     LOGDIR = os.path.join(NEO4J_HOME, "logs")
-    os.makedirs(LOGDIR, exist_ok=False)
+    os.makedirs(LOGDIR, exist_ok=True)
     LOGFILE = os.path.join(LOGDIR, f"import.log.{timestamp}")
 
     # Clean import directory
