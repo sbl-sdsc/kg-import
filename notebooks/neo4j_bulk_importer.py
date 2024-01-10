@@ -53,7 +53,7 @@ def create_kg():
 
     # Clean import directory
 
-    for file in Path(NEO4J_IMPORT).glob('*.csv')
+    for file in Path(NEO4J_IMPORT).glob('*.csv'):
         os.remove(file)
 
     # args.txt contains arguments for the neo4j_admin tool
