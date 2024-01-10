@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import os
+import sys
 import time
 import shutil
 import pathlib
@@ -13,37 +14,37 @@ def create_kg():
     
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     if not NEO4J_HOME:
-        exit("NEO4J_HOME environment variable has not been set")
+        sys.exit("NEO4J_HOME environment variable has not been set")
     if not os.path.exists(NEO4J_HOME):
-        exit(f"Neo4j HOME directory not found: {NEO4J_HOME}")
+        sys.exit(f"Neo4j HOME directory not found: {NEO4J_HOME}")
     
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     if not os.path.exists(NEO4J_HOME):
-        exit(f"Neo4j import directory not found: {NEO4J_HOME}")
+        sys.exit(f"Neo4j import directory not found: {NEO4J_HOME}")
     
     NEO4J_METADATA = os.environ.get("NEO4J_METADATA")
     if not os.path.exists(NEO4J_METADATA):
-        exit(f"Metadata directory not found: {NEO4J_METADATA}")
+        sys.exit(f"Metadata directory not found: {NEO4J_METADATA}")
     
     NEO4J_METADATA_NODES = os.path.join(NEO4J_METADATA, "nodes")
     if not os.path.exists(NEO4J_METADATA_NODES):
-        exit(f"Metadata directory not found: {NEO4J_METADATA_NODES}")
+        sys.exit(f"Metadata directory not found: {NEO4J_METADATA_NODES}")
     
     NEO4J_METADATA_RELATIONSHIPS = os.path.join(NEO4J_METADATA, "relationships")
     if not os.path.exists(NEO4J_METADATA_RELATIONSHIPS):
-        exit(f"Metadata directory not found: {NEO4J_METADATA_RELATIONSHIPS}")
+        sys.exit(f"Metadata directory not found: {NEO4J_METADATA_RELATIONSHIPS}")
     
     NEO4J_DATA = os.environ.get("NEO4J_DATA")
     if not os.path.exists(NEO4J_DATA):
-        exit(f"Data directory not found: {NEO4J_DATA}")
+        sys.exit(f"Data directory not found: {NEO4J_DATA}")
     
     NEO4J_DATA_NODES = os.path.join(NEO4J_DATA, "nodes")
     if not os.path.exists(NEO4J_DATA_NODES):
-        exit(f"Data directory not found: {NEO4J_DATA_NODES}")
+        sys.exit(f"Data directory not found: {NEO4J_DATA_NODES}")
     
     NEO4J_DATA_RELATIONSHIPS = os.path.join(NEO4J_DATA, "relationships")
     if not os.path.exists(NEO4J_DATA_RELATIONSHIPS):
-        exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
+        sys.exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
     
     # create a timestamped logfile
     date_time = datetime.fromtimestamp(time.time())
