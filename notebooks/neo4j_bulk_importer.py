@@ -58,7 +58,8 @@ def create_kg():
             os.remove(os.path.join(NEO4J_IMPORT, filename))
 
     # args.txt contains arguments for the neo4j_admin tool
-    os.remove(os.path.join(NEO4J_IMPORT, "args.txt"))
+    os.path.exists(os.path.join(NEO4J_IMPORT, "args.txt")):
+        os.remove(os.path.join(NEO4J_IMPORT, "args.txt"))
 
     # Copy data and metadata files into the import directory
     # The header line is removed since the column names and types are provided in a separate file for bulk download.
