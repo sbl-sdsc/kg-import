@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import shutil
-import pathlib
+from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -53,9 +53,8 @@ def create_kg():
 
     # Clean import directory
 
-    for filename in os.listdir(NEO4J_IMPORT):
-        if filename.endswith(".csv"):
-            os.remove(os.path.join(NEO4J_IMPORT, filename))
+    for file in Path(NEO4J_IMPORT).glob('*.csv')
+        os.remove(file)
 
     # args.txt contains arguments for the neo4j_admin tool
     if os.path.exists(os.path.join(NEO4J_IMPORT, "args.txt")):
@@ -64,13 +63,13 @@ def create_kg():
     # Copy data and metadata files into the import directory
     # The header line is removed since the column names and types are provided in a separate file for bulk download.
 
-    for input_file in os.listdir(NEO4J_DATA_NODES):
-        output_file = os.path.join(NEO4J_IMPORT, f"{pathlib.Path(input_file).stem}_n.csv")
+    for input_file in Path(NEO4J_DATA_NODES).glob('*.csv'):
+        output_file = os.path.join(NEO4J_IMPORT, f"{input_file.stem}_n.csv")
         copy_without_header(input_file, output_file)
 
 
-    for input_file in os.listdir(NEO4J_DATA_RELATIONSHIPS):
-        output_file = os.path.join(NEO4J_IMPORT, f"{pathlib.Path(input_file).stem}_r.csv")
+    for input_file in Path(NEO4J_DATA_RELATIONSHIPS).glob('*.csv'):
+        output_file = os.path.join(NEO4J_IMPORT, f"{input_file.stem}_r.csv")
         copy_without_header(input_file, output_file)
 
               
