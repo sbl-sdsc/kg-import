@@ -106,9 +106,21 @@ def run_bulk_import():
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
-    subprocess.run([neo4j_admin, "database" "import", "full", NEO4J_DATABASE, "--overwrite-destinatio", "-skip-bad-relationships", 
+    subprocess.run([neo4j_admin, "database" "import", "full", NEO4J_DATABASE, "--overwrite-destination", "-skip-bad-relationships", 
                     "--skip-duplicate-nodes", "--multiline-fields", '--array-delimiter="|"', "@args.txt"])
     #echo ERROR: Neo4j bulk data import failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
 
 
+def create_database():
+    #echo Creating online database: "$NEO4J_DATABASE" ...
+    #"$NEO4J_BIN"/cypher-shell -d system -u $NEO4J_USERNAME -p $NEO4J_PASSWORD "CREATE DATABASE $NEO4J_DATABASE_QUOTED;"
+    #echo ERROR: Creating database failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+
+    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
+    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    database_name = f"\`{NEO4J_DATABASE}\`"
+    cypher_shell = f"{NEO4J_BIN}/cypher-shell"
+    subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, "CREATE DATABASE", database_name, ";"])
 
