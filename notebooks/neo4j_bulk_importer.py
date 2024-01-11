@@ -72,7 +72,7 @@ def create_kg():
         output_file = os.path.join(NEO4J_IMPORT, f"{input_file.stem}_r.csv")
         copy_without_header(input_file, output_file)
 
-              
+
 def copy_without_header(input_file, output_file):
     with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
         next(f_in)  # Skip the first line
