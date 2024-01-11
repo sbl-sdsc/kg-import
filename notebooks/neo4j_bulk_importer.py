@@ -98,5 +98,17 @@ def drop_database():
     shutil.rmtree(database_dir, ignore_errors=True)
 
 
+def run_bulk_import():
+    #(cd "$NEO4J_IMPORT";
+    #"$NEO4J_BIN"/neo4j-admin database import full $NEO4J_DATABASE --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter="|" @args.txt)
+    NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
+    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
+    subprocess.run([neo4j_admin, "database" "import", "full", NEO4J_DATABASE, "--overwrite-destinatio", "-skip-bad-relationships", 
+                    "--skip-duplicate-nodes", "--multiline-fields", '--array-delimiter="|"', "@args.txt"])
+    #echo ERROR: Neo4j bulk data import failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+
 
 
