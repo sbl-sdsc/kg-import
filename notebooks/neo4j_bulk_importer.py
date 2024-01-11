@@ -128,5 +128,5 @@ def create_database():
     database_name = f"`{NEO4J_DATABASE}`"
     database_name = NEO4J_DATABASE
     cypher_shell = f"{NEO4J_BIN}/cypher-shell"
-    subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, "CREATE DATABASE", database_name, ";"], capture_output=True, check=True)
+    subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, "CREATE", "OR", "REPLACE", "DATABASE", database_name, ";"], capture_output=True, check=True)
 
