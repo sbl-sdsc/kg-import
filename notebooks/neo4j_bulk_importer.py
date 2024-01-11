@@ -119,6 +119,7 @@ def create_database():
     NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_BIN = os.environ.get("NEO4J_BIN")
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     database_name = f"\`{NEO4J_DATABASE}\`"
     cypher_shell = f"{NEO4J_BIN}/cypher-shell"
