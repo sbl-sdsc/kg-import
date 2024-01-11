@@ -88,7 +88,7 @@ def drop_database():
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
-    database_name = f"\`{NEO4J_DATABASE}\`"
+    database_name = f"`{NEO4J_DATABASE}`"
     cypher_shell = f"{NEO4J_BIN}/cypher-shell"
     #cypher_command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
     subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, 
@@ -105,6 +105,8 @@ def run_bulk_import():
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    database_name = f"`{NEO4J_DATABASE}`"
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
     subprocess.run([neo4j_admin, "database" "import", "full", NEO4J_DATABASE, "--overwrite-destination", "-skip-bad-relationships", 
                     "--skip-duplicate-nodes", "--multiline-fields", '--array-delimiter="|"', "@args.txt"], capture_output=True, check=True)
@@ -121,7 +123,7 @@ def create_database():
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
-    database_name = f"\`{NEO4J_DATABASE}\`"
+    database_name = f"`{NEO4J_DATABASE}`"
     cypher_shell = f"{NEO4J_BIN}/cypher-shell"
     subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, "CREATE DATABASE", database_name, ";"], capture_output=True, check=True)
 
