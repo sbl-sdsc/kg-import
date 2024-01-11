@@ -90,7 +90,7 @@ def drop_database():
     database_name = f"\`{NEO4J_DATABASE}\`"
     cypher_shell = f"{NEO4J_BIN}/cypher-shell"
     #cypher_command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
-    subprocess.run([cypher-shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, 
+    subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, 
                     "DROP DATABASE", database_name, "IF EXISTS;"])
     #echo ERROR: Running cypher-shell. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
     #conda deactivate
