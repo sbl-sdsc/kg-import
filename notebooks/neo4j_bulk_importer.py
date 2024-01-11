@@ -110,7 +110,7 @@ def run_bulk_import():
     database_name = f"`{NEO4J_DATABASE}`"
     database_name = NEO4J_DATABASE
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
-    subprocess.run([neo4j_admin, "database" "import", "full", NEO4J_DATABASE, "--overwrite-destination", "-skip-bad-relationships", 
+    subprocess.run([neo4j_admin, "database", "import", "full", NEO4J_DATABASE, "--overwrite-destination", "-skip-bad-relationships", 
                     "--skip-duplicate-nodes", "--multiline-fields", '--array-delimiter="|"', "@args.txt"], capture_output=True, check=True)
     #echo ERROR: Neo4j bulk data import failed. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
 
