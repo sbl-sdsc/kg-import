@@ -93,7 +93,7 @@ def drop_database():
     subprocess.run([cypher_shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, 
                     "DROP DATABASE", database_name, "IF EXISTS;"])
     #echo ERROR: Running cypher-shell. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
-    database_file = os.join(NEO4J_HOME, "data", "databases", NEO4J_DATABASE)
+    database_file = os.path.join(NEO4J_HOME, "data", "databases", NEO4J_DATABASE)
     if os.path.exists(database_file):
         os.remove(database_file)
 
