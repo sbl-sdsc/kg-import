@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
+import subprocess
 
 def create_kg():
     # Check environment variables and directory structure
@@ -77,6 +78,25 @@ def copy_without_header(input_file, output_file):
     with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
         next(f_in)  # Skip the first line
         shutil.copyfileobj(f_in, f_out)
+
+def drop_database():
+    "Dropping database: $NEO4J_DATABASE ... 
+    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    NEO4J_BIN = os.environ.get("NEO4J_USERNAME")
+    NEO4J_BIN = os.environ.get("NEO4J_PASSWORD")
+    
+    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    database_name = f"\`{NEO4J_DATABASE}\`"
+    cypher_shell = f"{NEO4J_BIN}/cypher-shell"
+    #cypher_command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
+    subprocess.run([cypher-shell, "-d", "system", "-u", NEO4J_USERNAME, "-p", NEO4J_PASSWORD, 
+                    "DROP DATABASE", database_name, "IF EXISTS;"])
+    #echo ERROR: Running cypher-shell. Make sure Neo4j Graph DBMS is running, and username and password are correct. | tee -a "$LOGFILE"
+    #conda deactivate
+    #exit 1
+
+    #rm -rf "$NEO4J_HOME"/data/databases/$NEO4J_DATABASE
 
 
 
