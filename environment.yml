@@ -10,6 +10,7 @@ dependencies:
   - papermill=2.4.0
   - pandas=2.1.1
   - py2neo=2021.2.3
+  - ipycytoscape
   - monotonic=1.5
   - openjdk=17.0.8
   - python-dotenv=1.0.0
