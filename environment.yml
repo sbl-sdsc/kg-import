@@ -5,12 +5,15 @@ channels:
 
 dependencies:
   - python=3.10
-  - jupyterlab=4
+  - jupyterlab
+  - ipywidgets
   - papermill=2.4.0
   - pandas=2.1.1
   - py2neo=2021.2.3
   - monotonic=1.5
   - openjdk=17.0.8
+  - python-dotenv=1.0.0
+  - papermill
 
 variables:
   # Neo4j local version
