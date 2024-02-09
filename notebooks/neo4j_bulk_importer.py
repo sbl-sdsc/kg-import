@@ -131,6 +131,8 @@ def drop_database(verbose=False):
     
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;'"
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    if ret.returncode != 0:
+        print("ERROR: drop_database: The database is not running. Start the database before running this script")
     if verbose:
         print(ret.stdout.decode())
 
@@ -152,7 +154,7 @@ def run_bulk_import(verbose=False):
        
     # run import
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
-    command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
+    command = f"cd {NEO4J_IMPORT}; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
 
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     if verbose:
@@ -162,11 +164,10 @@ def run_bulk_import(verbose=False):
 def create_database(verbose=False):
     NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
-    
+    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
@@ -190,7 +191,6 @@ def add_indices(verbose=False):
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
