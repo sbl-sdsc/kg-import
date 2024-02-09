@@ -183,9 +183,10 @@ def create_database(verbose=False):
 def add_indices(verbose=False):
     NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_IMPORT = os.environ.get("NEO4J_IMPORT")
+    NEO4J_HOME = os.environ.get("NEO4J_HOME")
     # add single quote, Neo4j path may have spaces
-    NEO4J_IMPORT = f"'{NEO4J_IMPORT}'"
+    NEO4J_HOME = f"'{NEO4J_HOME}'"
+    NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
