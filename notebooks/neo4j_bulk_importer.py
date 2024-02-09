@@ -131,7 +131,7 @@ def drop_database(verbose=False):
     
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;'"
 
-    try
+    try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     except CalledProcessError:
         print("ERROR: drop_database: The Graph DBMS is not running. Start the Graph DBMS before running this script")
