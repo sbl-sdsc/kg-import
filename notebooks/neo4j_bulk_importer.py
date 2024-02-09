@@ -19,9 +19,7 @@ def import_from_csv():
 
 
 def setup():
-    # Check environment variables and directory structure
-    #load_dotenv(".env.colab")
-    
+    # Check environment variables and directory structure   
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     if not NEO4J_HOME:
         sys.exit("NEO4J_HOME environment variable has not been set")
@@ -131,16 +129,23 @@ def drop_database(verbose=True):
 
 def run_bulk_import(verbose=False):
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    # add single quote, Neo4j path may have spaces
+    NEO4J_HOME = f"'{NEO4J_HOME}'"
+    
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    # add single quote, Neo4j path may have spaces
+    NEO4J_BIN = f"'{NEO4J_BIN}'"
+    
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
-    # run import
-    neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
+    # run import (quote NEO4J_BIN path since it may have spaces)
+    neo4j_admin = os.path.join("'",NEO4J_BIN, "'", "neo4j-admin")
     command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt {NEO4J_DATABASE_QUOTED}"
+
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     if verbose:
         print(ret.stdout.decode())
@@ -151,6 +156,9 @@ def create_database(verbose=False):
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    # add single quote, Neo4j path may have spaces
+    NEO4J_BIN = f"'{NEO4J_BIN}'"
+    
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
