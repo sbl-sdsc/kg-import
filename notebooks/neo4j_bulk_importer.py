@@ -18,6 +18,14 @@ def import_from_csv():
     add_indices()
 
 
+def import_from_csv_to_neo4j_desktop():
+    setup()
+    pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
+    run_bulk_import()
+    #neo4j_utils.start()
+    add_indices()
+
+
 def setup():
     # Check environment variables and directory structure   
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
