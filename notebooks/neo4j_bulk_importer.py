@@ -207,8 +207,8 @@ def add_indices(verbose=False):
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
     cypher_script = os.path.join(NEO4J_IMPORT, "indices.cypher")
-    #print("cypher_shell:", cypher_shell)
-    #print("cypher_script:", cypher_script)
+    print("cypher_shell:", cypher_shell)
+    print("cypher_script:", cypher_script)
     command = f"{cypher_shell} -d {NEO4J_DATABASE} -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} -f {cypher_script}"
 
     # run command to add the indices and constraints
