@@ -142,8 +142,8 @@ def run_bulk_import(verbose=False):
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
-    # run import (quote NEO4J_BIN path since it may have spaces)
-    neo4j_admin = os.path.join("'",NEO4J_BIN, "'", "neo4j-admin")
+    # run import
+    neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
     command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt {NEO4J_DATABASE_QUOTED}"
 
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
