@@ -180,7 +180,7 @@ def create_database(verbose=False):
 
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
-    command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED}';"
+    command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED};'"
     print("create database:", command)
 
     # run command to create the database
