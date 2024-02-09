@@ -24,8 +24,7 @@ def import_from_csv_to_neo4j_desktop(verbose=False):
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
     run_bulk_import(verbose=verbose)
     create_database(verbose=verbose)
-    #neo4j_utils.start()
-    add_indices()
+    add_indices(verbose=verbose)
 
 
 def setup():
@@ -182,6 +181,7 @@ def create_database(verbose=False):
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
     command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED}';"
+    print("create database:", command)
 
     # run command to create the database
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
