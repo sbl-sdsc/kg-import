@@ -18,12 +18,12 @@ def import_from_csv():
     add_indices()
 
 
-def import_from_csv_to_neo4j_desktop():
+def import_from_csv_to_neo4j_desktop(verbose=False):
     setup()
-    drop_database(verbose=True)
+    drop_database(verbose=verbose)
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
-    run_bulk_import()
-    create_database(verbose=True)
+    run_bulk_import(verbose=verbose)
+    create_database(verbose=verbose)
     #neo4j_utils.start()
     add_indices()
 
@@ -116,7 +116,7 @@ def dump_database(verbose=False):
         print(ret.stdout.decode())
 
 
-def drop_database(verbose=True):
+def drop_database(verbose=False):
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     # add single quote, Neo4j path may have spaces
     NEO4J_HOME = f"'{NEO4J_HOME}'"
@@ -181,7 +181,7 @@ def create_database(verbose=False):
 
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
-    command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {database_name}';"
+    command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE}';"
 
     # run command to create the database
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
@@ -207,8 +207,8 @@ def add_indices(verbose=False):
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
     cypher_script = os.path.join(NEO4J_IMPORT, "indices.cypher")
-    print("cypher_shell:", cypher_shell)
-    print("cypher_script:", cypher_script)
+    #print("cypher_shell:", cypher_shell)
+    #print("cypher_script:", cypher_script)
     command = f"{cypher_shell} -d {NEO4J_DATABASE} -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} -f {cypher_script}"
 
     # run command to add the indices and constraints
