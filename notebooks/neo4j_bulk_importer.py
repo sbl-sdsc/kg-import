@@ -160,7 +160,7 @@ def run_bulk_import(verbose=False):
     
     # run import
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
-    command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full {NEO4J_DATABASE_QUOTED} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
+    command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
 
     print("run bulk import:", command)
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
