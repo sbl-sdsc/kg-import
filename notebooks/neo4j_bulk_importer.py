@@ -129,7 +129,6 @@ def drop_database(verbose=False):
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
-    # command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;'"
     if verbose:
         print("Run drop database command:", command)
@@ -179,8 +178,7 @@ def create_database(verbose=False):
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
     # compose the cypher shell command
-    cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
-    command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED};'"
+    command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED};'"
     print("create database:", command)
 
     # run command to create the database
