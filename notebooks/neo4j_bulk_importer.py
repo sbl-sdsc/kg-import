@@ -130,8 +130,6 @@ def drop_database(verbose=False):
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;'"
-    if verbose:
-        print("Run drop database command:", command)
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     if verbose:
         print(ret.stdout.decode())
@@ -145,24 +143,17 @@ def drop_database(verbose=False):
 def run_bulk_import(verbose=False):
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     # add single quote, Neo4j path may have spaces
-    NEO4J_HOME = f"'{NEO4J_HOME}'"
-    
+    NEO4J_HOME = f"'{NEO4J_HOME}'"  
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
-    
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    
-    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
-    NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
-    print("run bulk import database:", NEO4J_DATABASE_QUOTED)
-    
+       
     # run import
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
     command = f"cd {NEO4J_IMPORT}; ls; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
 
-    print("run bulk import:", command)
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     if verbose:
         print(ret.stdout.decode())
@@ -181,7 +172,6 @@ def create_database(verbose=False):
 
     # compose the cypher shell command
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED};'"
-    print("create database:", command)
 
     # run command to create the database
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
@@ -207,8 +197,6 @@ def add_indices(verbose=False):
     # compose the cypher shell command
     cypher_shell = os.path.join(NEO4J_BIN, "cypher-shell")
     cypher_script = os.path.join(NEO4J_IMPORT, "indices.cypher")
-    print("cypher_shell:", cypher_shell)
-    print("cypher_script:", cypher_script)
     command = f"{cypher_shell} -d {NEO4J_DATABASE} -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} -f {cypher_script}"
 
     # run command to add the indices and constraints
