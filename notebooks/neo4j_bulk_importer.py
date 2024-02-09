@@ -133,12 +133,11 @@ def drop_database(verbose=False):
 
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        if verbose:
+            print(ret.stdout.decode())
     except:
         print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.")
         
-    if verbose:
-        print(ret.stdout.decode())
-
     # remove the database file
     # TODO remove the transaction files as well
     database_dir = os.path.join(NEO4J_HOME, "data", "databases", NEO4J_DATABASE)
@@ -161,12 +160,11 @@ def run_bulk_import(verbose=False):
 
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        if verbose:
+            print(ret.stdout.decode())
     except:
         print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}")
         
-    if verbose:
-        print(ret.stdout.decode())
-    
 
 def create_database(verbose=False):
     NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
@@ -184,10 +182,10 @@ def create_database(verbose=False):
     # run command to create the database
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        if verbose:
+            print(ret.stdout.decode())
     except:
         print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
-    if verbose:
-        print(ret.stdout.decode())
         
 
 def add_indices(verbose=False):
@@ -212,8 +210,7 @@ def add_indices(verbose=False):
     # run command to add the indices and constraints
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        if verbose:
+            print(ret.stdout.decode())
     except:
         print("ERROR: add_indices: adding indices and constraints failed.")
-        
-    if verbose:
-        print(ret.stdout.decode())
