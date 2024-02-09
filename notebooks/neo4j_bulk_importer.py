@@ -126,7 +126,7 @@ def drop_database(verbose=False):
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     
-    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;'"
@@ -134,9 +134,7 @@ def drop_database(verbose=False):
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     except:
-        print("ERROR: drop_database: The Graph DBMS is not running. Start the Graph DBMS before running this script")
-        import sys
-        sys.exit(ret.returncode)
+        print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.")
         
     if verbose:
         print(ret.stdout.decode())
@@ -161,7 +159,11 @@ def run_bulk_import(verbose=False):
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
     command = f"cd {NEO4J_IMPORT}; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
 
-    ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    try:
+        ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    except:
+        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}")
+        
     if verbose:
         print(ret.stdout.decode())
     
@@ -173,14 +175,17 @@ def create_database(verbose=False):
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
     # compose the cypher shell command
     command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} 'CREATE OR REPLACE DATABASE {NEO4J_DATABASE_QUOTED};'"
 
     # run command to create the database
-    ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    try:
+        ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    except:
+        print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
     if verbose:
         print(ret.stdout.decode())
         
@@ -196,7 +201,7 @@ def add_indices(verbose=False):
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
+    # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
     # compose the cypher shell command
@@ -205,6 +210,10 @@ def add_indices(verbose=False):
     command = f"{cypher_shell} -d {NEO4J_DATABASE} -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} -f {cypher_script}"
 
     # run command to add the indices and constraints
-    ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    try:
+        ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+    except:
+        print("ERROR: add_indices: adding indices and constraints failed.")
+        
     if verbose:
         print(ret.stdout.decode())
