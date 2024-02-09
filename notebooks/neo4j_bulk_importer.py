@@ -133,7 +133,7 @@ def drop_database(verbose=False):
 
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
-    except CalledProcessError:
+    except:
         print("ERROR: drop_database: The Graph DBMS is not running. Start the Graph DBMS before running this script")
         import sys
         sys.exit(ret.returncode)
