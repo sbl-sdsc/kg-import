@@ -165,7 +165,7 @@ def run_bulk_import(verbose=False):
             print(ret.stdout.decode())
     except:
         print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}")
-        sys.exit(-1)
+        raise
         
 
 def create_database(verbose=False):
@@ -188,7 +188,7 @@ def create_database(verbose=False):
             print(ret.stdout.decode())
     except:
         print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
-        sys.exit(-1)
+        raise
         
 
 def add_indices(verbose=False):
@@ -217,4 +217,4 @@ def add_indices(verbose=False):
             print(ret.stdout.decode())
     except:
         print("ERROR: add_indices: adding indices and constraints failed.")
-        sys.exit(-1)
+        raise
