@@ -137,7 +137,7 @@ def drop_database(verbose=False):
             print(ret.stdout.decode())
     except:
         print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.")
-        sys.exit(-1)
+        raise
         
     # remove the database file
     # TODO remove the transaction files as well
