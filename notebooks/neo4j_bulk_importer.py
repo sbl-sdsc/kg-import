@@ -130,7 +130,8 @@ def drop_database(verbose=True):
     # Cypher-shell requires database names to be quoted by tick marks if there are non-alphanumeric characters in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
     
-    command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
+    # command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED} IF EXISTS;"
+    command = f"{NEO4J_BIN}/cypher-shell -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} DROP DATABASE {NEO4J_DATABASE_QUOTED};"
     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
     if verbose:
         print(ret.stdout.decode())
