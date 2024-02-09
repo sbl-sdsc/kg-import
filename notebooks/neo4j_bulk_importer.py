@@ -20,8 +20,10 @@ def import_from_csv():
 
 def import_from_csv_to_neo4j_desktop():
     setup()
+    drop_database(verbose=True)
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
     run_bulk_import()
+    create_database(verbose=True)
     #neo4j_utils.start()
     add_indices()
 
@@ -116,7 +118,11 @@ def dump_database(verbose=False):
 
 def drop_database(verbose=True):
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    # add single quote, Neo4j path may have spaces
+    NEO4J_HOME = f"'{NEO4J_HOME}'"
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    # add single quote, Neo4j path may have spaces
+    NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
