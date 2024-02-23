@@ -27,6 +27,15 @@ def import_from_csv_to_neo4j_desktop(verbose=False):
     add_indices(verbose=verbose)
 
 
+def import_from_csv_to_neo4j_enterprise(verbose=False):
+    setup()
+    drop_database(verbose=verbose)
+    pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
+    run_bulk_import(verbose=verbose)
+    create_database(verbose=verbose)
+    add_indices(verbose=verbose)
+
+
 def setup():
     # Check environment variables and directory structure   
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
@@ -62,6 +71,11 @@ def setup():
     NEO4J_DATA_RELATIONSHIPS = os.path.join(NEO4J_DATA, "relationships")
     if not os.path.exists(NEO4J_DATA_RELATIONSHIPS):
         sys.exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
+
+
+    NEO4J_USE_SUDO = os.path.join(NEO4J_DATA, "NEO4J_USE_SUDO")
+    if not os.path.exists(NEO4J_USE_SUDO):
+        sys.exit(f"NEO4J_USE_SUDO environment variable has not been set.")
     
     # create a timestamped logfile
     date_time = datetime.fromtimestamp(time.time())
@@ -106,11 +120,21 @@ def dump_database(verbose=False):
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     # if install path is not set, install Neo4j into the current directory
     neo4j_install_path = os.getenv("NEO4J_INSTALL_PATH", ".")
-    neo4j_home = os.path.join(neo4j_install_path, version)
+    neo4j_dump = os.path.join(neo4j_install_path, version)
     neo4j_bin = os.getenv("NEO4J_BIN", os.path.join(neo4j_home, "bin"))
     neo4j_admin = os.path.join(neo4j_bin, "neo4j-admin")
 
-    ret = subprocess.run([neo4j_admin, "database", "dump", NEO4J_DATABASE, "--to-path=" + neo4j_home])
+    os.makedirs(neo4j_dump, exist_ok=True))
+    command = f"{sudo} {neo4j_admin} database dump {NEO4J_DATABASE} --to-path={neo4j_dump}"
+
+    try:
+        ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        if verbose:
+            print(ret.stdout.decode())
+        print(f"{NEO4J_DATABASE} dumped to: {neo4j_dump}")
+    except:
+        print(f"ERROR: dump_database: Dump failed for database: {NEO4J_DATABASE}")
+        raise
     if verbose:
         print(ret.stdout.decode())
 
@@ -154,10 +178,16 @@ def run_bulk_import(verbose=False):
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-       
+    NEO4J_USE_SUDO = os.path.join(NEO4J_DATA, "NEO4J_USE_SUDO")
+
+    
     # run import
+    sudo = ""
+    if NEO4J_USE_SUDO == "True":
+        sudo = "sudo"
+
     neo4j_admin = os.path.join(NEO4J_BIN, "neo4j-admin")
-    command = f"cd {NEO4J_IMPORT}; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
+    command = f"cd {NEO4J_IMPORT}; {sudo} {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
 
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
