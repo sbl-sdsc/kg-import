@@ -183,7 +183,7 @@ def drop_database(verbose=False):
 def run_bulk_import(verbose=False):
     NEO4J_HOME = os.environ.get("NEO4J_HOME")
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")"
+    NEO4J_BIN = os.environ.get("NEO4J_BIN")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
     NEO4J_USE_SUDO = os.environ.get("NEO4J_USE_SUDO")
 
