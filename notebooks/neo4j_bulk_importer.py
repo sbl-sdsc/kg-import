@@ -124,7 +124,7 @@ def dump_database(verbose=False):
     neo4j_bin = os.getenv("NEO4J_BIN", os.path.join(neo4j_home, "bin"))
     neo4j_admin = os.path.join(neo4j_bin, "neo4j-admin")
 
-    os.makedirs(neo4j_dump, exist_ok=True))
+    os.makedirs(neo4j_dump, exist_ok=True)
     command = f"{sudo} {neo4j_admin} database dump {NEO4J_DATABASE} --to-path={neo4j_dump}"
 
     try:
