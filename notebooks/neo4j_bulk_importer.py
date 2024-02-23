@@ -178,7 +178,7 @@ def run_bulk_import(verbose=False):
     # add single quote, Neo4j path may have spaces
     NEO4J_BIN = f"'{NEO4J_BIN}'"
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    NEO4J_USE_SUDO = os.path.join(NEO4J_DATA, "NEO4J_USE_SUDO")
+    NEO4J_USE_SUDO = os.environ.get("NEO4J_USE_SUDO")
 
     
     # run import
