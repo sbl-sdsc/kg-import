@@ -73,8 +73,8 @@ def setup():
         sys.exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
 
 
-    NEO4J_USE_SUDO = os.path.join(NEO4J_USE_SUDO, "NEO4J_USE_SUDO")
-    if not os.path.exists(NEO4J_USE_SUDO):
+    NEO4J_USE_SUDO = os.environ.get("NEO4J_USE_SUDO")
+    if not NEO4J_USE_SUDO:
         sys.exit(f"NEO4J_USE_SUDO environment variable has not been set.")
     
     # create a timestamped logfile
