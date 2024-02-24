@@ -193,6 +193,7 @@ def run_bulk_import(verbose=False):
         sudo = "sudo"
 
     neo4j_admin = quote_path(os.path.join(NEO4J_BIN, "neo4j-admin"))
+    NEO4J_IMPORT = quote_path(NEO4J_IMPORT)
     command = f"cd {NEO4J_IMPORT}; {sudo} {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
     if verbose:
         print(f"run_bulk_import: {command}", flush=True)
