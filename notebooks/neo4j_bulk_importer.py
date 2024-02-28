@@ -262,17 +262,24 @@ def run_cypher(verbose=False):
 
     if NEO4J_CYPHER == "":
         return
-          
+
+    # prepare cypher statement and quote database name
+    cyphers = []
+    for cypher in NEO4J_CYPHER.split(";"):
+        if cypher := cypher.strip() != "":
+            cypher = cypher.replace(NEO4J_DATABASE, NEO4J_DATABASE_QUOTED)
+            cyphers.append(f"{cypher};")
+
     # compose the cypher shell command
     cypher_shell = quote_path(os.path.join(NEO4J_BIN, "cypher-shell"))
-    for cypher_statement in NEO4J_CYPHER.split(";"):
-        command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} '{cypher_statement.strip()}'"
+    for cypher in cyphers:
+        command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} '{cypher}'"
         if verbose:
             print(f"run_cypher: {command}", flush=True)
-        # try:
-        #     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
-        #     if verbose:
-        #         print(ret.stdout.decode(), flush=True)
-        # except:
-        #     print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
+       # try:
+       #     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+       #     if verbose:
+       #         print(ret.stdout.decode(), flush=True)
+         # except:
+         #     print(f"ERROR: run_cypher: {cypher} statement failed.")
         #     raise
