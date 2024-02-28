@@ -39,13 +39,13 @@ def import_from_csv_to_neo4j_enterprise(verbose=False):
 
 def setup():
     # Check environment variables and directory structure   
-    NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    NEO4J_HOME = os.getenv("NEO4J_HOME")
     if not NEO4J_HOME:
         sys.exit("NEO4J_HOME environment variable has not been set")
     if not os.path.exists(NEO4J_HOME):
         sys.exit(f"Neo4j HOME directory not found: {NEO4J_HOME}")
 
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
     if not NEO4J_BIN:
         sys.exit("NEO4J_BIN environment variable has not been set")
     if not os.path.exists(NEO4J_BIN):
@@ -55,7 +55,7 @@ def setup():
     if not os.path.exists(NEO4J_IMPORT):
         sys.exit(f"Neo4j import directory not found: {NEO4J_IMPORT}")
     
-    NEO4J_METADATA = os.environ.get("NEO4J_METADATA")
+    NEO4J_METADATA = os.getenv("NEO4J_METADATA")
     if not os.path.exists(NEO4J_METADATA):
         sys.exit(f"Metadata directory not found: {NEO4J_METADATA}")
     
@@ -67,7 +67,7 @@ def setup():
     if not os.path.exists(NEO4J_METADATA_RELATIONSHIPS):
         sys.exit(f"Metadata directory not found: {NEO4J_METADATA_RELATIONSHIPS}")
     
-    NEO4J_DATA = os.environ.get("NEO4J_DATA")
+    NEO4J_DATA = os.getenv("NEO4J_DATA")
     if not os.path.exists(NEO4J_DATA):
         sys.exit(f"Data directory not found: {NEO4J_DATA}")
     
@@ -123,7 +123,7 @@ def quote_path(path):
 
 
 def dump_database(verbose=False):
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     NEO4J_INSTALL_PATH = os.getenv("NEO4J_INSTALL_PATH")
     neo4j_dump = os.path.join(NEO4J_INSTALL_PATH, version)
     NEO4J_BIN = os.getenv("NEO4J_BIN")
@@ -149,11 +149,11 @@ def dump_database(verbose=False):
 
 
 def drop_database(verbose=False):
-    NEO4J_HOME = os.environ.get("NEO4J_HOME")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
-    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
-    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_HOME = os.getenv("NEO4J_HOME")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
+    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     
     # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
@@ -178,10 +178,10 @@ def drop_database(verbose=False):
 
 
 def run_bulk_import(verbose=False):
-    NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    NEO4J_HOME = os.getenv("NEO4J_HOME")
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
 
     # run import
     neo4j_admin = quote_path(os.path.join(NEO4J_BIN, "neo4j-admin"))
@@ -200,10 +200,10 @@ def run_bulk_import(verbose=False):
         
 
 def create_database(verbose=False):
-    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
-    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
@@ -224,12 +224,12 @@ def create_database(verbose=False):
         
 
 def add_indices(verbose=False):
-    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
-    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_HOME = os.environ.get("NEO4J_HOME")
+    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    NEO4J_HOME = os.getenv("NEO4J_HOME")
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
 
@@ -252,15 +252,15 @@ def add_indices(verbose=False):
 
 
 def run_cypher(verbose=False):
-    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
-    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
-    NEO4J_BIN = os.environ.get("NEO4J_BIN")
-    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+    NEO4J_BIN = os.getenv("NEO4J_BIN")
+    NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
-    NEO4J_CYPHER = os.environ.get("NEO4J_CYPHER", "")
+    NEO4J_CYPHER = os.getenv("NEO4J_CYPHER", "")
 
-    if NEO4J_CYPHER = "":
+    if NEO4J_CYPHER == "":
         return
           
     # compose the cypher shell command
