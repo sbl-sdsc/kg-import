@@ -266,7 +266,7 @@ def run_cypher(verbose=False):
     # prepare cypher statement and quote database name
     cyphers = []
     for cypher in NEO4J_CYPHER.split(";"):
-        if cypher := cypher.strip() != "":
+        if (cypher := cypher.strip()) != "":
             cypher = cypher.replace(NEO4J_DATABASE, NEO4J_DATABASE_QUOTED)
             cyphers.append(f"{cypher};")
 
