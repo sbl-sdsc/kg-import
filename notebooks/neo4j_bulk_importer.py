@@ -34,6 +34,7 @@ def import_from_csv_to_neo4j_enterprise(verbose=False):
     run_bulk_import(verbose=verbose)
     create_database(verbose=verbose)
     add_indices(verbose=verbose)
+    run_cypher(verbose=verbose)
 
 
 def setup():
@@ -77,10 +78,6 @@ def setup():
     NEO4J_DATA_RELATIONSHIPS = os.path.join(NEO4J_DATA, "relationships")
     if not os.path.exists(NEO4J_DATA_RELATIONSHIPS):
         sys.exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
-
-    NEO4J_USE_SUDO = os.environ.get("NEO4J_USE_SUDO")
-    if not NEO4J_USE_SUDO:
-        sys.exit(f"NEO4J_USE_SUDO environment variable has not been set in the .env file")
     
     # create a timestamped logfile
     # date_time = datetime.fromtimestamp(time.time())
@@ -134,7 +131,7 @@ def dump_database(verbose=False):
 
     os.makedirs(neo4j_dump, exist_ok=True)
     neo4j_dump = quote_path(eo4j_dump)
-    command = f"{sudo} {neo4j_admin} database dump {NEO4J_DATABASE} --to-path={neo4j_dump}"
+    command = f"{neo4j_admin} database dump {NEO4J_DATABASE} --to-path={neo4j_dump}"
     
     if verbose:
         print(f"dump_database: {command}", flush=True)
@@ -185,16 +182,11 @@ def run_bulk_import(verbose=False):
     NEO4J_IMPORT = os.path.join(NEO4J_HOME, "import")
     NEO4J_BIN = os.environ.get("NEO4J_BIN")
     NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
-    NEO4J_USE_SUDO = os.environ.get("NEO4J_USE_SUDO")
 
     # run import
-    sudo = ""
-    if NEO4J_USE_SUDO == "True":
-        sudo = "sudo"
-
     neo4j_admin = quote_path(os.path.join(NEO4J_BIN, "neo4j-admin"))
     NEO4J_IMPORT = quote_path(NEO4J_IMPORT)
-    command = f"cd {NEO4J_IMPORT}; {sudo} {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
+    command = f"cd {NEO4J_IMPORT}; {neo4j_admin} database import full {NEO4J_DATABASE} --overwrite-destination --skip-bad-relationships --skip-duplicate-nodes --multiline-fields --array-delimiter='|' @args.txt"
     if verbose:
         print(f"run_bulk_import: {command}", flush=True)
 
@@ -257,3 +249,30 @@ def add_indices(verbose=False):
     except:
         print("ERROR: add_indices: adding indices and constraints failed.")
         raise
+
+
+def run_cypher(verbose=False):
+    NEO4J_USERNAME = os.environ.get("NEO4J_USERNAME")
+    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD")
+    NEO4J_BIN = os.environ.get("NEO4J_BIN")
+    NEO4J_DATABASE = os.environ.get("NEO4J_DATABASE")
+    # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
+    NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
+    NEO4J_CYPHER = os.environ.get("NEO4J_CYPHER", "")
+
+    if NEO4J_CYPHER = "":
+        return
+          
+    # compose the cypher shell command
+    cypher_shell = quote_path(os.path.join(NEO4J_BIN, "cypher-shell"))
+    for cypher_statement in NEO4J_CYPHER.split(";"):
+        command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} '{cypher_statement.strip()}'"
+        if verbose:
+            print(f"run_cypher: {command}", flush=True)
+        # try:
+        #     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+        #     if verbose:
+        #         print(ret.stdout.decode(), flush=True)
+        # except:
+        #     print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
+        #     raise
