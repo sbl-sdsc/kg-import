@@ -168,7 +168,7 @@ def drop_database(verbose=False):
         if verbose:
             print(ret.stdout.decode(), flush=True)
     except:
-        print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.")
+        print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.", flush=True)
         raise
         
     # remove the database file
@@ -193,9 +193,9 @@ def run_bulk_import(verbose=False):
     try:
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
         if verbose:
-            print(ret.stdout.decode())
+            print(ret.stdout.decode(), flush=True)
     except:
-        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}")
+        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}", flush=True)
         raise
         
 
@@ -219,7 +219,7 @@ def create_database(verbose=False):
         if verbose:
             print(ret.stdout.decode(), flush=True)
     except:
-        print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.")
+        print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.", flush=True)
         raise
         
 
@@ -247,7 +247,7 @@ def add_indices(verbose=False):
         if verbose:
             print(ret.stdout.decode(), flush=True)
     except:
-        print("ERROR: add_indices: adding indices and constraints failed.")
+        print("ERROR: add_indices: adding indices and constraints failed.", flush=True)
         raise
 
 
@@ -276,10 +276,10 @@ def run_cypher(verbose=False):
         command = f"{cypher_shell} -d system -u {NEO4J_USERNAME} -p {NEO4J_PASSWORD} '{cypher}'"
         if verbose:
             print(f"run_cypher: {command}", flush=True)
-       # try:
-       #     ret = subprocess.run(command, capture_output=True, check=True, shell=True)
-       #     if verbose:
-       #         print(ret.stdout.decode(), flush=True)
-         # except:
-         #     print(f"ERROR: run_cypher: {cypher} statement failed.")
-        #     raise
+        try:
+            ret = subprocess.run(command, capture_output=True, check=True, shell=True)
+            if verbose:
+                print(ret.stdout.decode(), flush=True)
+        except:
+            print(f"ERROR: run_cypher: {cypher} statement failed.", flush=True)
+            raise
