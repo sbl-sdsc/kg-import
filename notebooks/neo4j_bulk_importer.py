@@ -262,7 +262,7 @@ def run_cypher(mode, verbose=False):
     
     if mode == "pre":
         NEO4J_CYPHER = os.getenv("NEO4J_PRE_CYPHER", "")
-    elif mode = "post":
+    elif mode == "post":
         NEO4J_CYPHER = os.getenv("NEO4J_POST_CYPHER", "")
     else:
         NEO4J_CYPHER = ""
