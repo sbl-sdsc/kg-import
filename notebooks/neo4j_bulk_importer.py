@@ -29,12 +29,13 @@ def import_from_csv_to_neo4j_desktop(verbose=False):
 
 def import_from_csv_to_neo4j_enterprise(verbose=False):
     setup()
+    run_cypher("pre", verbose=verbose)
     drop_database(verbose=verbose)
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
     run_bulk_import(verbose=verbose)
     create_database(verbose=verbose)
     add_indices(verbose=verbose)
-    run_cypher(verbose=verbose)
+    run_cypher("post", verbose=verbose)
 
 
 def setup():
@@ -251,14 +252,20 @@ def add_indices(verbose=False):
         raise
 
 
-def run_cypher(verbose=False):
+def run_cypher(mode, verbose=False):
     NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
     NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
     NEO4J_BIN = os.getenv("NEO4J_BIN")
     NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
     # Cypher-shell requires database names to be quoted by tick marks if non-alphanumeric characters are in the name.
     NEO4J_DATABASE_QUOTED = f"`{NEO4J_DATABASE}`"
-    NEO4J_CYPHER = os.getenv("NEO4J_CYPHER", "")
+    
+    if mode == "pre":
+        NEO4J_CYPHER = os.getenv("NEO4J_PRE_CYPHER", "")
+    elif mode = "post":
+        NEO4J_CYPHER = os.getenv("NEO4J_POST_CYPHER", "")
+    else:
+        NEO4J_CYPHER = ""
 
     if NEO4J_CYPHER == "":
         return
