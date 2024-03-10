@@ -198,7 +198,7 @@ def run_bulk_import(verbose=False):
         if verbose:
             print(ret.stdout.decode(), flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}", flush=True
+        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}", flush=True)
         print(e.output)
         raise
         
