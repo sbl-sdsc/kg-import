@@ -142,8 +142,9 @@ def dump_database(verbose=False):
         if verbose:
             print(ret.stdout.decode(), flush=True)
         print(f"{NEO4J_DATABASE} dumped to: {neo4j_dump}")
-    except:
+    except subprocess.CalledProcessError as e:
         print(f"ERROR: dump_database: Dump failed for database: {NEO4J_DATABASE}")
+        print(e.output)
         raise
     if verbose:
         print(ret.stdout.decode())
@@ -168,8 +169,9 @@ def drop_database(verbose=False):
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
         if verbose:
             print(ret.stdout.decode(), flush=True)
-    except:
+    except subprocess.CalledProcessError as e:
         print(f"ERROR: drop_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect. Start the Graph DBMS before running this script.", flush=True)
+        print(e.output)
         raise
         
     # remove the database file
@@ -195,8 +197,9 @@ def run_bulk_import(verbose=False):
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
         if verbose:
             print(ret.stdout.decode(), flush=True)
-    except:
-        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}", flush=True)
+    except subprocess.CalledProcessError as e:
+        print(f"ERROR: run_bulk_import: The import failed for database: {NEO4J_DATABASE}", flush=True
+        print(e.output)
         raise
         
 
@@ -219,8 +222,9 @@ def create_database(verbose=False):
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
         if verbose:
             print(ret.stdout.decode(), flush=True)
-    except:
+    except subprocess.CalledProcessError as e:
         print(f"ERROR: create_database: The Graph DBMS is not running or the database name: {NEO4J_DATABASE}, username: {NEO4J_USERNAME}, or password: {NEO4J_PASSWORD} are incorrect.", flush=True)
+        print(e.output)
         raise
         
 
@@ -247,8 +251,9 @@ def add_indices(verbose=False):
         ret = subprocess.run(command, capture_output=True, check=True, shell=True)
         if verbose:
             print(ret.stdout.decode(), flush=True)
-    except:
+    except subprocess.CalledProcessError as e:
         print("ERROR: add_indices: adding indices and constraints failed.", flush=True)
+        print(e.output)
         raise
 
 
@@ -287,6 +292,7 @@ def run_cypher(mode, verbose=False):
             ret = subprocess.run(command, capture_output=True, check=True, shell=True)
             if verbose:
                 print(ret.stdout.decode(), flush=True)
-        except:
+        except subprocess.CalledProcessError as e:
             print(f"ERROR: run_cypher: {cypher} statement failed.", flush=True)
+            print(e.output)
             raise
