@@ -9,12 +9,12 @@ import subprocess
 import neo4j_utils
 
 
-def import_from_csv_to_neo4j_community():
+def import_from_csv_to_neo4j_community(verbose=False):
     setup()
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
-    run_bulk_import()
+    run_bulk_import(verbose=verbose)
     neo4j_utils.start()
-    add_indices()
+    add_indices(verbose=verbose)
 
 
 def import_from_csv_to_neo4j_desktop(verbose=False):
