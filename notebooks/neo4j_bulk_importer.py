@@ -3,14 +3,13 @@ import sys
 import time
 import shutil
 from pathlib import Path
-from datetime import datetime
 from dotenv import load_dotenv
 import papermill as pm
 import subprocess
 import neo4j_utils
 
 
-def import_from_csv():
+def import_from_csv_to_neo4j_community():
     setup()
     pm.execute_notebook("PrepareNeo4jBulkImport.ipynb", "PrepareNeo4jBulkImport_out.ipynb");
     run_bulk_import()
@@ -79,13 +78,6 @@ def setup():
     NEO4J_DATA_RELATIONSHIPS = os.path.join(NEO4J_DATA, "relationships")
     if not os.path.exists(NEO4J_DATA_RELATIONSHIPS):
         sys.exit(f"Data directory not found: {NEO4J_DATA_RELATIONSHIPS}")
-    
-    # create a timestamped logfile
-    # date_time = datetime.fromtimestamp(time.time())
-    # timestamp = date_time.strftime("%Y-%m-%d-%H%M%S")
-    # LOGDIR = os.path.join(NEO4J_HOME, "logs")
-    # os.makedirs(LOGDIR, exist_ok=True)
-    # LOGFILE = os.path.join(LOGDIR, f"import.log.{timestamp}")
 
     # Clean import directory
 
@@ -96,8 +88,8 @@ def setup():
     if os.path.exists(os.path.join(NEO4J_IMPORT, "args.txt")):
         os.remove(os.path.join(NEO4J_IMPORT, "args.txt"))
 
-    # TODO
-    # remove indices.cypher
+    if os.path.exists(os.path.join(NEO4J_IMPORT, "indices.cypher")):
+        os.remove(os.path.join(NEO4J_IMPORT, "indices.cypher"))
 
     # Copy data and metadata files into the import directory
     # The header line is removed since the column names and types are provided in a separate file for bulk download.
