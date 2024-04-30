@@ -233,27 +233,33 @@ mamba env create -f environment.yml
 
 ![](docs/start_neo4j.png)
 
-4. Activate the conda environment
+4. In a terminal window activate the conda environment
 
 ```
 conda activate kg-import
 ```
 
-5. Run the ImportToDesktop Jupyter Notebook in the notebooks directory.
+5. Start Jupyter Lab
 
-6. Click `Open` to launch Neo4j Browser.
+```
+jupyter lab
+```
+
+6. Navigate to the `notebooks` directory and run the `ImportToDesktop` Jupyter Notebook.
+
+7. Click `Open` to launch Neo4j Browser.
 
 ![](docs/open_database.png)
 
-7. Neo4j Browser will launch. Click on the database icon on the top left. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
+8. Neo4j Browser will launch. Click on the database icon on the top left. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
 
 ![](docs/node_labels.png)
 
-8. Set the Graph Stylesheet
+9. Set the Graph Stylesheet
 
-Drag ```style.grass``` file from the ```styles``` directory onto the Neo4j Browser window to set the colors, sizes, and labels for the nodes.
+Drag `style.grass` file from the `styles` directory onto the Neo4j Browser window to set the colors, sizes, and labels for the nodes.
 
-9. Now you are ready to explore the example database!
+10. Now you are ready to explore the example database!
 
 Double-click on Node Label `*(19)` to display all nodes in the example graph. Click on Patient `Jane` to show the properties of the node.
 
