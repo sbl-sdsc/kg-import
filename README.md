@@ -153,11 +153,7 @@ p93948,James,Bond,52,male,true
 
 ### Installing Neo4j Desktop on MacOS
 
-1. Clone the kg-import Repository
 
-```
-git clone https://github.com/sbl-sdsc/kg-import.git
-```
 
 2. Download the Neo4j Desktop application from the [Neo4j Download Center](https://neo4j.com/download-center/#desktop) and follow the installation instructions.
 
@@ -180,7 +176,35 @@ git clone https://github.com/sbl-sdsc/kg-import.git
 bash-3.2$ pwd
 /Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-763cbf0d-6660-412a-8042-c55ae40d5290
 ```
-    
+
+
+### Software Setup
+
+------
+Prerequisites: Miniconda3 (light-weight, preferred) or Anaconda3 and Mamba (faster than Conda)
+
+* Install [Miniconda3](https://docs.conda.io/en/latest/miniconda.html)
+* Update an existing miniconda3 installation: ```conda update conda```
+* Install Mamba: ```conda install mamba -n base -c conda-forge```
+* Install Git (if not installed): ```conda install git -n base -c anaconda```
+------
+
+1. Clone the kg-import Repository
+
+```
+git clone https://github.com/sbl-sdsc/kg-import.git
+```
+
+2. Create a Conda environment
+
+The file `environment.yml` specifies the Python version and all required dependencies.
+
+```
+mamba env create -f environment.yml
+```
+
+
+
 ### Importing the Example Data into Neo4j Desktop
 
 1. Copy the file .env_desktop_template to .env_desktop
@@ -209,18 +233,24 @@ bash-3.2$ pwd
 
 ![](docs/start_neo4j.png)
 
-4. Run the ImportToDesktop Jupyter Notebook in the notebooks directory.
+4. Activate the conda environment
 
-5. Click `Open` to launch Neo4j Browser.
+```
+conda activate kg-import
+```
+
+5. Run the ImportToDesktop Jupyter Notebook in the notebooks directory.
+
+6. Click `Open` to launch Neo4j Browser.
 
 ![](docs/open_database.png)
 
-6. Neo4j Browser will launch. Click on the database icon on the top left. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
+7. Neo4j Browser will launch. Click on the database icon on the top left. Wait (~20-30 seconds) until the Node Labels and Relationship Types are displayed.
 
 ![](docs/node_labels.png)
 
 
-7. Now you are ready to explore the example database!
+8. Now you are ready to explore the example database!
 
 Double-click on Node Label `*(19)` to display all nodes in the example graph. Click on Patient `Jane` to show the properties of the node.
 
