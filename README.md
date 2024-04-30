@@ -149,7 +149,7 @@ p93948,James,Bond,52,male,true
 [ExampleQueries_colab](notebooks/ExampleQueries_colab.ipynb) <a target="_blank" href="https://colab.research.google.com/github/sbl-sdsc/kg-import/blob/main/notebooks/ExampleQueries_colab.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>
 
 ---
-## Data Import Into Neo4j Knowledge Graph
+## Data Import Into Neo4j Desktop
 
 ### Installing Neo4j Desktop on MacOS
 
@@ -165,9 +165,7 @@ git clone https://github.com/sbl-sdsc/kg-import.git
 
 ![](docs/neo4j_new.png)
 
-4. Hover the cursor next to `Project`, then click the edit button and change the project name to `kg-import`
-
-![](docs/rename_project.png)
+4. Hover the cursor next to `Project` in the newly created project, then click the edit button and change the project name to `kg-import`
 
 5. Click the `ADD` button and select `Local DBMS`. Select the latest version. Then enter the password `neo4jdemo` and click `Create`.
     
@@ -178,57 +176,40 @@ git clone https://github.com/sbl-sdsc/kg-import.git
 ![](docs/open_terminal.png)
 
 7. Type `pwd` in the terminal window to show the path to the `NEO4J_HOME` directory. This path is required to configure the import_neo4j.sh script, see next section.
- 
-![](docs/neo4j_home.png)
-    
-### Importing the Example Data into the Knowledge Graph
-    
-1. Copy the script [import_neo4j.sh](import_neo4j.sh) to a location outside of this repository. **Do not modify the script in the kg-import repo!**
-    
-2. Edit the script and set the following variables:
-
 ```
-# Absolute path to Neo4j home directory
-#    Add quotes if the path contains spaces, e.g.,
-#    export NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-763cbf0d-6660-412a-8042-c55ae40d5290"
-NEO4J_HOME=<path_to_neo4j_home>
-
-# Absolute path to Neo4j bin directory
-#    On MacOS: NEO4J_BIN="$NEO4J_HOME"/bin
-export NEO4J_BIN=<path_to_neo4j_bin_directory>
-
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=neo4jdemo
-
-# A new database will be created if it does not exist.
-# An existing database will be overwritten with the new data.
-NEO4J_DATABASE=neo4j
-
-# Uncomment the export statement below to set an optional Neo4j Graph Stylesheet (GraSS)
-#   A GraSS file can be exported from the Neo4j browser by running the :style command and then clicking the download icon.
-#   Example GraSS from this repo:
-export NEO4J_STYLESHEET_URL=https://raw.githubusercontent.com/sbl-sdsc/kg-import/main/styles/style.grass
-
-# Absolute paths to node and relationship metadata file directories
-export NEO4J_METADATA=/Users/<path>/kg-import/example_metadata/
-
-# Absolute paths to node and relationship data file directories
-export NEO4J_DATA=/Users/<path>/kg-import/example_data/
-
-# Absolute path to kg-import Git repository
-export KGIMPORT_GITREPO=/Users/<path>/kg-import
-
-# Run the Neo4j bulk data import
-$KGIMPORT_GITREPO/scripts/neo4j_bulk_import.sh
+bash-3.2$ pwd
+/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-763cbf0d-6660-412a-8042-c55ae40d5290
 ```
-   
+    
+### Importing the Example Data into Neo4j Desktop
+
+1. Copy the file .env_desktop_template to .env_desktop
+
+2. Edit the file .env_desktop and set the following environment variables:
+```
+ # Absolute path to Neo4j home directory in double quotes
+ NEO4J_HOME="/Users/User/Library/Application Support/Neo4j Desktop/Application/relate-data/dbmss/dbms-763cbf0d-6660-412a-8042-c55ae40d5290"
+ #
+ # Absolute path to Neo4j bin directory (on MacOS: NEO4J_BIN=${NEO4J_HOME}/bin)
+ NEO4J_BIN=${NEO4J_HOME}/bin
+ #
+ # Username, password, and the name of the database
+ NEO4J_USERNAME=neo4j
+ NEO4J_PASSWORD=neo4jdemo
+ NEO4J_DATABASE=kg-import
+ #
+ # Absolute paths to node and relationship metadata file directories
+ NEO4J_METADATA=/Users/User/GitRepositories/kg-import/example_metadata
+ #
+ # Absolute paths to node and relationship data file directories
+ NEO4J_DATA=/Users/User/GitRepositories/kg-import/example_data
+```
+  
 3. Start Neo4j Graph DBMS in the Neo4j Desktop.
 
 ![](docs/start_neo4j.png)
 
-4. Run your copy of the import_neo4j.sh script in a terminal window.
-
-``` ./import_neo4j.sh```
+4. Run the ImportToDesktop Jupyter Notebook in the notebooks directory.
 
 5. Click `Open` to launch Neo4j Browser.
 
