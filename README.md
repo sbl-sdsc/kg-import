@@ -249,8 +249,11 @@ conda activate kg-import
 
 ![](docs/node_labels.png)
 
+8. Set the Graph Stylesheet
 
-8. Now you are ready to explore the example database!
+Drag ```style.grass``` file from the ```styles``` directory onto the Neo4j Browser window to set the colors, sizes, and labels for the nodes.
+
+9. Now you are ready to explore the example database!
 
 Double-click on Node Label `*(19)` to display all nodes in the example graph. Click on Patient `Jane` to show the properties of the node.
 
